@@ -188,7 +188,7 @@ function fpw_post_instructions_settings() {
 add_action('add_meta_boxes', 'fpw_post_instructions_add_custom_box');
 
 function fpw_post_instructions_add_custom_box() {
-	add_meta_box( 'fpw_post_instructions_sectionid', __( 'Special Instructions for Editors', 'fpw-post-instuctions' ), 'fpw_post_instructions_box', 'post', 'advanced', 'high' );
+	add_meta_box( 'fpw_post_instructions_sectionid', __( 'Special Instructions for Editors', 'fpw-post-instructions' ), 'fpw_post_instructions_box', 'post', 'advanced', 'high' );
 }
 
 /* Prints the box content */
