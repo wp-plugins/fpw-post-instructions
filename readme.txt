@@ -4,7 +4,7 @@ Donate link:
 Tags: post, metabox, instructions
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 1.0.0
+Stable tag: trunk
 
 Adds a metabox to Add New Post / Edit Post screens with instructions for editors.
 
