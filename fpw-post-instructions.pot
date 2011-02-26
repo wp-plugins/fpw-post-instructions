@@ -1,0 +1,80 @@
+# Copyright (C) 2010 FPW Post Instructions
+# This file is distributed under the same license as the FPW Post Instructions package.
+msgid ""
+msgstr ""
+"Project-Id-Version: FPW Post Instructions 1.0.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/fpw-post-instructions\n"
+"POT-Creation-Date: 2011-02-26 17:32:59+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: fpw-post-instructions.php:48 fpw-post-instructions.php:145
+msgid "FPW Post Instructions - Settings"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.0.0)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: fpw-post-instructions.php:49
+msgid "FPW Post Instructions"
+msgstr ""
+
+#: fpw-post-instructions.php:81
+msgid "Settings"
+msgstr ""
+
+#: fpw-post-instructions.php:150
+msgid "Settings updated successfully."
+msgstr ""
+
+#: fpw-post-instructions.php:152
+msgid "No changes detected. Nothing to update."
+msgstr ""
+
+#: fpw-post-instructions.php:156
+msgid "For guidelines click on"
+msgstr ""
+
+#: fpw-post-instructions.php:156
+msgid "Help"
+msgstr ""
+
+#: fpw-post-instructions.php:156
+msgid "above"
+msgstr ""
+
+#: fpw-post-instructions.php:171
+msgid "Remove plugin's data from database on uninstall"
+msgstr ""
+
+#: fpw-post-instructions.php:172
+msgid "Special Instructions for Editors metabox - Content"
+msgstr ""
+
+#: fpw-post-instructions.php:179
+msgid "Update Settings"
+msgstr ""
+
+#: fpw-post-instructions.php:191
+msgid "Special Instructions for Editors"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.0.0)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.0.0)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://fw2s.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Adds a metabox to Add New Post / Edit Post screens with instructions for "
+"editors."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Frank P. Walentynowicz"
+msgstr ""
