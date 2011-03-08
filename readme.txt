@@ -1,32 +1,29 @@
 === FPW Post Instructions ===
 Contributors: frankpw
 Donate link: 
-Tags: post, metabox, instructions
+Tags: post, page, custom post type, metabox, instructions
 Requires at least: 3.0
 Tested up to: 3.1
 Stable tag: 1.0.0
 
-Adds a metabox to Add New Post / Edit Post screens with instructions for editors.
+Adds a metabox to post editing screens ( for posts, pages, and custom post types ) with instructions for editors.
 
 == Description ==
 
-**FPW Post Instructions** plugin adds a metabox to Add New Post / Edit Post screens 
-with instructions for editors. Instructions could be of a general nature or
-specific to custom **post types** or **post formats**.
-The content of this meta box can be entered / modified on plugin's settings
-page.
+**FPW Post Instructions** plugin adds a metabox to post editing screens ( for posts, pages, and custom post types ) with instructions for editors. The content of this meta box can be entered / modified on plugin's settings page.
 
 == Installation ==
 
 1. Upload `fpw-post-instructions` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Select Dashboard's Settings -> FPW Post Instructions and enter / modify the text
-
-== Frequently Asked Questions ==
-
-== Screenshots ==
+1. Select Dashboard's Settings -> FPW Post Instructions and enter / modify options
 
 == Changelog ==
+
+= 1.1.0 =
+* Major upgrade.
+* Added suport for pages and custom post types.
+* Added ability to enable / disable metaboxes for selected types.
 
 = 1.0.0 =
 * Initial release.
