@@ -22,7 +22,7 @@ Adds a metabox to post editing screens ( for posts, pages, and custom post types
 
 = 1.1.0 =
 * Major upgrade.
-* Added suport for pages and custom post types.
+* Added support for pages and custom post types.
 * Added ability to enable / disable metaboxes for selected types.
 
 = 1.0.0 =
