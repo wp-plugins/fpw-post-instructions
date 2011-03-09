@@ -3,7 +3,7 @@
 Plugin Name: FPW Post Instructions
 Description: Adds a metabox to Add New Post / Edit Post screens with instructions for editors.
 Plugin URI: http://fw2s.com/
-Version: 1.1.0
+Version: 1.1.1
 Author: Frank P. Walentynowicz
 Author URI: http://fw2s.com/
 
@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 if ( !defined( 'FPW_POST_INSTRUCTIONS_VERSION') )
-	define( 'FPW_POST_INSTRUCTIONS_VERSION', '1.1.0' );
+	define( 'FPW_POST_INSTRUCTIONS_VERSION', '1.1.1' );
 	
 /*	--------------------------------
 	Load text domain for translation
@@ -117,26 +117,27 @@ function fpw_post_instructions_settings() {
 	$fpw_options = get_option( 'fpw_post_instructions_options' );
 	$my_type = array( 'enabled' => FALSE, 'title' => '', 'content' => '' );
 	if ( !is_array( $fpw_options ) ) {
-		$my_types = array( 'post' => $my_type, 'page' => $my_type );
+		$my_types = array( 'post' => $my_type, 'page' => $my_type, 'link' => $my_type );
 		/*	initialize public custom post types part */
 		foreach ( $post_types as $post_type ) {
 			$my_types[ $post_type ] = $my_type;
 		}
 		$fpw_options = array( 'clean' => FALSE, 'types' => $my_types );
-		update_option( 'fpw_post_instructions_options', $fpw_options );
 	} else {
 		$do_cleanup = $fpw_options[ 'clean '];
 		if ( is_string( $fpw_options[ 'instructions' ] ) ) {
 			$my_post = array( 'enabled' => TRUE, 'title' => '', 'content' => $fpw_options[ 'instructions' ] );
-			$my_types = array( 'post' => $my_post, 'page' => $my_type );
+			$my_types = array( 'post' => $my_post, 'page' => $my_type, 'link' => $my_type );
 			/*	initialize public custom post types part */
 			foreach ( $post_types as $post_type ) {
 				$my_types[ $post_type ] = $my_type;
 			}
 			$fpw_options = array( 'clean' => FALSE, 'types' => $my_types );
-			update_option( 'fpw_post_instructions_options', $fpw_options );
 		}
+		if ( !is_array( $fpw_options[ 'types' ][ 'link' ] ) )
+			$fpw_options[ 'types' ][ 'link' ] = $my_type;
 	}
+	update_option( 'fpw_post_instructions_options', $fpw_options );
 	
 	/*	add new custom post types to options if new */
 	$new_post_types = false;
@@ -168,6 +169,11 @@ function fpw_post_instructions_settings() {
 		$fpw_options[ 'types' ][ 'page' ][ 'enabled' ] = ( $_POST[ 'page-enabled' ] == 'yes' );
 		$fpw_options[ 'types' ][ 'page' ][ 'title' ] = $_POST[ 'page-title' ];
 		$fpw_options[ 'types' ][ 'page' ][ 'content' ] = $_POST[ 'page-content' ];
+
+		/*	Post type: LINK */
+		$fpw_options[ 'types' ][ 'link' ][ 'enabled' ] = ( $_POST[ 'link-enabled' ] == 'yes' );
+		$fpw_options[ 'types' ][ 'link' ][ 'title' ] = $_POST[ 'link-title' ];
+		$fpw_options[ 'types' ][ 'link' ][ 'content' ] = $_POST[ 'link-content' ];
 
 		/*	Post type: CUSTOM */
 		foreach ( $post_types as $post_type ) {
@@ -216,35 +222,46 @@ function fpw_post_instructions_settings() {
 	echo " /> " . __( "Remove plugin's data from database on uninstall", 'fpw-post-instructions' ) . '<br /></p><hr />' . PHP_EOL;
 	
 	/*	Post type: POST */
-	echo '<p><h3>Type: post</h3>' . PHP_EOL;
+	echo '<p><h3>' . __( 'Type', 'fpw-post-instructions' ) . ': post</h3>' . PHP_EOL;
 	echo '<input type="checkbox" name="post-enabled" value="yes"';
 	if ( $fpw_options[ 'types' ][ 'post' ][ 'enabled' ] )
 		echo ' checked';
 	echo ' /> ' . __( 'Enabled', 'fpw-post-instructions' ) . '<br /><br />' . PHP_EOL;
-	echo 'Title ( default: <strong>' . __( 'Special Instructions for Editors', 'fpw-post-instructions' ) . '</strong> )<br />' . PHP_EOL;
+	echo __( 'Title ( default', 'fpw-post-instructions' ) . ': <strong>' . __( 'Special Instructions for Editors', 'fpw-post-instructions' ) . '</strong> )<br />' . PHP_EOL;
 	echo '<input type="text" name="post-title" value="' . $fpw_options[ 'types' ][ 'post' ][ 'title' ] . '" maxlenght="60" size="60" /><br /><br />' . PHP_EOL;
 	echo __( 'Content ( HTML allowed )', 'fpw-post-instructions' ) . '<br />' . PHP_EOL;
 	echo '<textarea rows="7" style="width: 100%;" name="post-content">' . $fpw_options[ 'types' ][ 'post' ][ 'content' ] . '</textarea><hr />' . PHP_EOL;
 	
 	/*	Post type: PAGE */
-	echo '<h3>Type: page</h3>' . PHP_EOL;
+	echo '<h3>' . __( 'Type', 'fpw-post-instructions' ) . ': page</h3>' . PHP_EOL;
 	echo '<input type="checkbox" name="page-enabled" value="yes"';
 	if ( $fpw_options[ 'types' ][ 'page' ][ 'enabled' ] )
 		echo ' checked';
 	echo ' /> ' . __( 'Enabled', 'fpw-post-instructions' ) . '<br /><br />' . PHP_EOL;
-	echo 'Title ( default: <strong>' . __( 'Special Instructions for Editors', 'fpw-post-instructions' ) . '</strong> )<br />' . PHP_EOL;
+	echo __( 'Title ( default', 'fpw-post-instructions' ) . ': <strong>' . __( 'Special Instructions for Editors', 'fpw-post-instructions' ) . '</strong> )<br />' . PHP_EOL;
 	echo '<input type="text" name="page-title" value="' . $fpw_options[ 'types' ][ 'page' ][ 'title' ] . '" maxlenght="60" size="60" /><br /><br />' . PHP_EOL;
 	echo __( 'Content ( HTML allowed )', 'fpw-post-instructions' ) . '<br />' . PHP_EOL;
 	echo '<textarea rows="7" style="width: 100%;" name="page-content">' . $fpw_options[ 'types' ][ 'page' ][ 'content' ] . '</textarea><hr />' . PHP_EOL;
 	
+	/*	Post type: LINK */
+	echo '<h3>' . __( 'Type', 'fpw-post-instructions' ) . ': link</h3>' . PHP_EOL;
+	echo '<input type="checkbox" name="link-enabled" value="yes"';
+	if ( $fpw_options[ 'types' ][ 'link' ][ 'enabled' ] )
+		echo ' checked';
+	echo ' /> ' . __( 'Enabled', 'fpw-post-instructions' ) . '<br /><br />' . PHP_EOL;
+	echo __( 'Title ( default', 'fpw-post-instructions' ) . ': <strong>' . __( 'Special Instructions for Editors', 'fpw-post-instructions' ) . '</strong> )<br />' . PHP_EOL;
+	echo '<input type="text" name="link-title" value="' . $fpw_options[ 'types' ][ 'link' ][ 'title' ] . '" maxlenght="60" size="60" /><br /><br />' . PHP_EOL;
+	echo __( 'Content ( HTML allowed )', 'fpw-post-instructions' ) . '<br />' . PHP_EOL;
+	echo '<textarea rows="7" style="width: 100%;" name="link-content">' . $fpw_options[ 'types' ][ 'link' ][ 'content' ] . '</textarea><hr />' . PHP_EOL;
+
 	/*	Post type: custom */
 	foreach ( $post_types as $post_type ) {
-		echo '<h3>Type: ' . $post_type . '</h3>' . PHP_EOL;
+		echo '<h3>' . __( 'Type', 'fpw-post-instructions' ) . ': ' . $post_type . '</h3>' . PHP_EOL;
 		echo '<input type="checkbox" name="' . $post_type . '-enabled" value="yes"';
 		if ( $fpw_options[ 'types' ][ $post_type ][ 'enabled' ] )
 			echo ' checked';
 		echo ' /> ' . __( 'Enabled', 'fpw-post-instructions' ) . '<br /><br />' . PHP_EOL;
-		echo 'Title ( default: <strong>' . __( 'Special Instructions for Editors', 'fpw-post-instructions' ) . '</strong> )<br />' . PHP_EOL;
+		echo __( 'Title ( default', 'fpw-post-instructions' ) . ': <strong>' . __( 'Special Instructions for Editors', 'fpw-post-instructions' ) . '</strong> )<br />' . PHP_EOL;
 		echo '<input type="text" name="' . $post_type . '-title" value="' . $fpw_options[ 'types' ][ $post_type ][ 'title' ] . '" maxlenght="60" size="60" /><br /><br />' . PHP_EOL;
 		echo __( 'Content ( HTML allowed )', 'fpw-post-instructions' ) . '<br />' . PHP_EOL;
 		echo '<textarea rows="7" style="width: 100%;" name="' . $post_type . '-content">' . $fpw_options[ 'types' ][ $post_type ][ 'content' ] . '</textarea><hr />' . PHP_EOL;
