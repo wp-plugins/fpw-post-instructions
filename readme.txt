@@ -26,13 +26,13 @@ Adds a metabox to post editing screens ( for posts, pages, and custom post types
 == Changelog ==
 
 = 1.1.1 =
-* Added support for links types.
-* Added Polish translation.
+* Added support for links types
+* Added Polish translation
 
 = 1.1.0 =
-* Major upgrade.
-* Added support for pages and custom post types.
-* Added ability to enable / disable metaboxes for selected types.
+* Major upgrade
+* Added support for pages and custom post types
+* Added ability to enable / disable metaboxes for selected types
 
 = 1.0.0 =
-* Initial release.
+* Initial release
