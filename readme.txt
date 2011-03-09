@@ -25,6 +25,10 @@ Adds a metabox to post editing screens ( for posts, pages, and custom post types
 
 == Changelog ==
 
+= 1.1.1 =
+* Added support for links types.
+* Added Polish translation.
+
 = 1.1.0 =
 * Major upgrade.
 * Added support for pages and custom post types.
