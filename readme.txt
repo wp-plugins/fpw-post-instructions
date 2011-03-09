@@ -6,11 +6,11 @@ Requires at least: 3.0
 Tested up to: 3.1
 Stable tag: 1.1.1
 
-Adds a metabox to post editing screens ( for posts, pages, and custom post types ) with instructions for editors.
+Adds a metabox to post editing screens ( for posts, pages, links, and custom post types ) with instructions for editors.
 
 == Description ==
 
-**FPW Post Instructions** plugin adds a metabox to post editing screens ( for posts, pages, and custom post types ) with instructions for editors. The content of this meta box can be entered / modified on plugin's settings page.
+**FPW Post Instructions** plugin adds a metabox to post editing screens ( for posts, pages, links, and custom post types ) with instructions for editors. The content of this meta box can be entered / modified on plugin's settings page.
 
 == Installation ==
 
