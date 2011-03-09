@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the FPW Post Instructions package.
 msgid ""
 msgstr ""
-"Project-Id-Version: FPW Post Instructions 1.1.0\n"
+"Project-Id-Version: FPW Post Instructions 1.1.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/fpw-post-instructions\n"
-"POT-Creation-Date: 2011-03-09 00:00:54+00:00\n"
+"POT-Creation-Date: 2011-03-09 17:04:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,11 +12,11 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: fpw-post-instructions.php:48 fpw-post-instructions.php:191
+#: fpw-post-instructions.php:48 fpw-post-instructions.php:197
 msgid "FPW Post Instructions - Settings"
 msgstr ""
 
-#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.0)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: fpw-post-instructions.php:49
 msgid "FPW Post Instructions"
@@ -26,52 +26,63 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: fpw-post-instructions.php:196
+#: fpw-post-instructions.php:202
 msgid "Settings updated successfully."
 msgstr ""
 
-#: fpw-post-instructions.php:198
+#: fpw-post-instructions.php:204
 msgid "No changes detected. Nothing to update."
 msgstr ""
 
-#: fpw-post-instructions.php:202
+#: fpw-post-instructions.php:208
 msgid "For guidelines click on"
 msgstr ""
 
-#: fpw-post-instructions.php:202
+#: fpw-post-instructions.php:208
 msgid "Help"
 msgstr ""
 
-#: fpw-post-instructions.php:202
+#: fpw-post-instructions.php:208
 msgid "above"
 msgstr ""
 
-#: fpw-post-instructions.php:216
+#: fpw-post-instructions.php:222
 msgid "Remove plugin's data from database on uninstall"
 msgstr ""
 
-#: fpw-post-instructions.php:223 fpw-post-instructions.php:234
-#: fpw-post-instructions.php:246
+#: fpw-post-instructions.php:225 fpw-post-instructions.php:236
+#: fpw-post-instructions.php:247 fpw-post-instructions.php:259
+msgid "Type"
+msgstr ""
+
+#: fpw-post-instructions.php:229 fpw-post-instructions.php:240
+#: fpw-post-instructions.php:251 fpw-post-instructions.php:263
 msgid "Enabled"
 msgstr ""
 
-#: fpw-post-instructions.php:224 fpw-post-instructions.php:235
-#: fpw-post-instructions.php:247 fpw-post-instructions.php:271
+#: fpw-post-instructions.php:230 fpw-post-instructions.php:241
+#: fpw-post-instructions.php:252 fpw-post-instructions.php:264
+msgid "Title ( default"
+msgstr ""
+
+#: fpw-post-instructions.php:230 fpw-post-instructions.php:241
+#: fpw-post-instructions.php:252 fpw-post-instructions.php:264
+#: fpw-post-instructions.php:288
 msgid "Special Instructions for Editors"
 msgstr ""
 
-#: fpw-post-instructions.php:226 fpw-post-instructions.php:237
-#: fpw-post-instructions.php:249
+#: fpw-post-instructions.php:232 fpw-post-instructions.php:243
+#: fpw-post-instructions.php:254 fpw-post-instructions.php:266
 msgid "Content ( HTML allowed )"
 msgstr ""
 
-#: fpw-post-instructions.php:253
+#: fpw-post-instructions.php:270
 msgid "Update Settings"
 msgstr ""
 
-#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.0)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.1)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.0)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.1)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://fw2s.com/"
 msgstr ""
