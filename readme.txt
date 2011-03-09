@@ -18,6 +18,11 @@ Adds a metabox to post editing screens ( for posts, pages, and custom post types
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Select Dashboard's Settings -> FPW Post Instructions and enter / modify options
 
+== Screenshots ==
+
+1. Settings Page
+2. Metabox
+
 == Changelog ==
 
 = 1.1.0 =
