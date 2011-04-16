@@ -168,12 +168,12 @@ function fpw_post_instructions_settings() {
 		/*	Post type: PAGE */
 		$fpw_options[ 'types' ][ 'page' ][ 'enabled' ] = ( $_POST[ 'page-enabled' ] == 'yes' );
 		$fpw_options[ 'types' ][ 'page' ][ 'title' ] = $_POST[ 'page-title' ];
-		$fpw_options[ 'types' ][ 'page' ][ 'content' ] = $_POST[ 'page-content' ];
+		$fpw_options[ 'types' ][ 'page' ][ 'content' ] = stripslashes( $_POST[ 'page-content' ] );
 
 		/*	Post type: LINK */
 		$fpw_options[ 'types' ][ 'link' ][ 'enabled' ] = ( $_POST[ 'link-enabled' ] == 'yes' );
 		$fpw_options[ 'types' ][ 'link' ][ 'title' ] = $_POST[ 'link-title' ];
-		$fpw_options[ 'types' ][ 'link' ][ 'content' ] = $_POST[ 'link-content' ];
+		$fpw_options[ 'types' ][ 'link' ][ 'content' ] = stripslashes( $_POST[ 'link-content' ] );
 
 		/*	Post type: CUSTOM */
 		foreach ( $post_types as $post_type ) {
