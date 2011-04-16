@@ -179,7 +179,7 @@ function fpw_post_instructions_settings() {
 		foreach ( $post_types as $post_type ) {
 			$fpw_options[ 'types' ][ $post_type ][ 'enabled' ] = ( $_POST[ $post_type . '-enabled' ] == 'yes' );
 			$fpw_options[ 'types' ][ $post_type ][ 'title' ] = $_POST[ $post_type . '-title' ];
-			$fpw_options[ 'types' ][ $post_type ][ 'content' ] = $_POST[ $post_type . '-content' ];
+			$fpw_options[ 'types' ][ $post_type ][ 'content' ] = stripslashes( $_POST[ $post_type . '-content' ] );
 		}
 
 		$updateok = update_option( 'fpw_post_instructions_options', $fpw_options );
