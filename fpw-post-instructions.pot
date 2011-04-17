@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the FPW Post Instructions package.
 msgid ""
 msgstr ""
-"Project-Id-Version: FPW Post Instructions 1.1.1\n"
+"Project-Id-Version: FPW Post Instructions 1.1.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/fpw-post-instructions\n"
-"POT-Creation-Date: 2011-03-09 17:04:55+00:00\n"
+"POT-Creation-Date: 2011-04-17 07:25:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,7 +16,7 @@ msgstr ""
 msgid "FPW Post Instructions - Settings"
 msgstr ""
 
-#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.1)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: fpw-post-instructions.php:49
 msgid "FPW Post Instructions"
@@ -80,9 +80,9 @@ msgstr ""
 msgid "Update Settings"
 msgstr ""
 
-#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.1)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.2)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.1)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.2)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://fw2s.com/"
 msgstr ""
