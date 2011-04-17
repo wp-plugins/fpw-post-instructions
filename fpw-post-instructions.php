@@ -3,7 +3,7 @@
 Plugin Name: FPW Post Instructions
 Description: Adds a metabox to Add New Post / Edit Post screens with instructions for editors.
 Plugin URI: http://fw2s.com/
-Version: 1.1.1
+Version: 1.1.2
 Author: Frank P. Walentynowicz
 Author URI: http://fw2s.com/
 
@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 if ( !defined( 'FPW_POST_INSTRUCTIONS_VERSION') )
-	define( 'FPW_POST_INSTRUCTIONS_VERSION', '1.1.1' );
+	define( 'FPW_POST_INSTRUCTIONS_VERSION', '1.1.2' );
 	
 /*	--------------------------------
 	Load text domain for translation
