@@ -25,6 +25,9 @@ Adds a metabox to post editing screens ( for posts, pages, links, and custom pos
 
 == Changelog ==
 
+= 1.1.3 =
+* Added support for rich text editing of the content
+
 = 1.1.2 =
 * Fixed problem with escaped quotes with instructions content for pages, links, and custom post types
 
