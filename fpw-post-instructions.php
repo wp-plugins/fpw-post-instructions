@@ -143,7 +143,7 @@ function editor_admin_init() {
 		}
 
 		/*	Next two following functions have code borrowed from TinyMCE Advanced plugin.
-			These function complement above setting in disabling stripping <br /> and <p>
+			These function complement above setting to disable stripping <br /> and <p>
 			tags by tinymce */
 
 		add_filter('htmledit_pre', 'fpw_htmledit', 999);
