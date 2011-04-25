@@ -1,0 +1,132 @@
+# Translation of FPW Post Instructions in Polish
+# This file is distributed under the same license as the FPW Post Instructions package.
+msgid ""
+msgstr ""
+"Project-Id-Version: FPW Post Instructions\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/fpw-post-instructions\n"
+"POT-Creation-Date: 2011-04-25 13:31:31+00:00\n"
+"PO-Revision-Date: 2011-04-25 07:36-0700\n"
+"Last-Translator: Frank P. Walentynowicz <frankpw@fw2s.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: GlotPress/0.1\n"
+
+#: fpw-post-instructions.php:52
+#: fpw-post-instructions.php:276
+msgid "FPW Post Instructions - Settings"
+msgstr "FPW Instrukcje Wpisów - Ustawienia"
+
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.3)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: fpw-post-instructions.php:53
+msgid "FPW Post Instructions"
+msgstr "FPW Instrukcje Wpisów"
+
+#: fpw-post-instructions.php:86
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: fpw-post-instructions.php:281
+msgid "Settings updated successfully."
+msgstr "Ustawienia zostały zaktualizowane."
+
+#: fpw-post-instructions.php:283
+msgid "No changes detected. Nothing to update."
+msgstr "Nie wykryto zmian do aktualizacji."
+
+#: fpw-post-instructions.php:287
+msgid "For guidelines click on"
+msgstr "Wskazówki - kliknij na"
+
+#: fpw-post-instructions.php:287
+msgid "Help"
+msgstr "Pomoc"
+
+#: fpw-post-instructions.php:287
+msgid "above"
+msgstr "powyżej"
+
+#: fpw-post-instructions.php:301
+msgid "Remove plugin's data from database on uninstall"
+msgstr "Usuń dane wtyczki z bazy danych podczas usuwania wtyczki"
+
+#: fpw-post-instructions.php:306
+msgid "Activate visual editor"
+msgstr "Włącz edytor wizualny"
+
+#: fpw-post-instructions.php:308
+msgid "To use this option you must enable rich text editing in your profile!"
+msgstr "Aby użyć tej opcji musisz włączyć obsługę edytora wizualnego w swoim profilu!"
+
+#: fpw-post-instructions.php:312
+#: fpw-post-instructions.php:337
+#: fpw-post-instructions.php:363
+#: fpw-post-instructions.php:389
+msgid "Type"
+msgstr "Typ"
+
+#: fpw-post-instructions.php:316
+#: fpw-post-instructions.php:341
+#: fpw-post-instructions.php:367
+#: fpw-post-instructions.php:393
+msgid "Enabled"
+msgstr "Włączony"
+
+#: fpw-post-instructions.php:317
+#: fpw-post-instructions.php:342
+#: fpw-post-instructions.php:368
+#: fpw-post-instructions.php:394
+msgid "Title"
+msgstr "Tytuł"
+
+#: fpw-post-instructions.php:317
+#: fpw-post-instructions.php:342
+#: fpw-post-instructions.php:368
+#: fpw-post-instructions.php:394
+msgid "default"
+msgstr "domyślny"
+
+#: fpw-post-instructions.php:317
+#: fpw-post-instructions.php:342
+#: fpw-post-instructions.php:368
+#: fpw-post-instructions.php:394
+#: fpw-post-instructions.php:433
+msgid "Special Instructions for Editors"
+msgstr "Specjalne Instrukcje dla Edytorów"
+
+#: fpw-post-instructions.php:319
+#: fpw-post-instructions.php:344
+#: fpw-post-instructions.php:370
+#: fpw-post-instructions.php:396
+msgid "Content"
+msgstr "Treść"
+
+#: fpw-post-instructions.php:321
+#: fpw-post-instructions.php:346
+#: fpw-post-instructions.php:372
+#: fpw-post-instructions.php:398
+msgid "HTML allowed"
+msgstr " HTML dozwolony"
+
+#: fpw-post-instructions.php:415
+msgid "Update Settings"
+msgstr "Zapisz Ustawienia"
+
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.3)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.1.3)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://fw2s.com/"
+msgstr "http://fw2s.com/"
+
+#. Description of the plugin/theme
+msgid "Adds a metabox to Add New Post / Edit Post screens with instructions for editors."
+msgstr "Adds a metabox to Add New Post / Edit Post screens with instructions for editors."
+
+#. Author of the plugin/theme
+msgid "Frank P. Walentynowicz"
+msgstr "Frank P. Walentynowicz"
+
