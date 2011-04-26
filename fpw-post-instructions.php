@@ -327,10 +327,10 @@ function fpw_post_instructions_settings() {
 		do_action( 'media_buttons' );
 		echo '</div>' . PHP_EOL;
 		echo '</div>' . PHP_EOL;
-		echo '<div id="editorcontainer"><textarea class="theEditor" rows="12" style="width: 100%;" name="post-content">' . $fpw_options[ 'types' ][ 'post' ][ 'content' ] . '</textarea></div><hr />' . PHP_EOL;
+		echo '<div id="editorcontainer"><textarea class="theEditor" rows="12" style="width: 100%;" name="post-content">' . $fpw_options[ 'types' ][ 'post' ][ 'content' ] . '</textarea></div>' . PHP_EOL;
 		echo '</div>' . PHP_EOL;
 	} else {
-		echo '<textarea rows="12" style="width: 100%;" name="post-content">' . $fpw_options[ 'types' ][ 'post' ][ 'content' ] . '</textarea><hr />' . PHP_EOL;
+		echo '<textarea rows="12" style="width: 100%;" name="post-content">' . $fpw_options[ 'types' ][ 'post' ][ 'content' ] . '</textarea>' . PHP_EOL;
 	}
 	
 	/*	Post type: PAGE */
@@ -352,11 +352,10 @@ function fpw_post_instructions_settings() {
 		do_action( 'media_buttons' );
 		echo '</div>' . PHP_EOL;
 		echo '</div>' . PHP_EOL;
-		echo '<div id="editorcontainer"><textarea class="theEditor" rows="12" style="width: 100%;" name="page-content">' . $fpw_options[ 'types' ][ 'page' ][ 'content' ] . '</textarea></div><hr />' . PHP_EOL;
-		/* echo '<div id="editorcontainer"><textarea class="theEditor" rows="12" style="width: 100%;" name="page-content">' . '<div><p>dupa</p><p>kupa</p></div>' . '</textarea></div><hr />' . PHP_EOL; */
+		echo '<div id="editorcontainer"><textarea class="theEditor" rows="12" style="width: 100%;" name="page-content">' . $fpw_options[ 'types' ][ 'page' ][ 'content' ] . '</textarea></div>' . PHP_EOL;
 		echo '</div>' . PHP_EOL;
 	} else {
-		echo '<textarea rows="12" style="width: 100%;" name="page-content">' . $fpw_options[ 'types' ][ 'page' ][ 'content' ] . '</textarea><hr />' . PHP_EOL;
+		echo '<textarea rows="12" style="width: 100%;" name="page-content">' . $fpw_options[ 'types' ][ 'page' ][ 'content' ] . '</textarea>' . PHP_EOL;
 	}
 	
 	/*	Post type: LINK */
@@ -378,10 +377,10 @@ function fpw_post_instructions_settings() {
 		do_action( 'media_buttons' );
 		echo '</div>' . PHP_EOL;
 		echo '</div>' . PHP_EOL;
-		echo '<div id="editorcontainer"><textarea class="theEditor" rows="12" style="width: 100%;" name="link-content">' . $fpw_options[ 'types' ][ 'link' ][ 'content' ] . '</textarea></div><hr />' . PHP_EOL;
+		echo '<div id="editorcontainer"><textarea class="theEditor" rows="12" style="width: 100%;" name="link-content">' . $fpw_options[ 'types' ][ 'link' ][ 'content' ] . '</textarea></div>' . PHP_EOL;
 		echo '</div>' . PHP_EOL;
 	} else {
-		echo '<textarea rows="12" style="width: 100%;" name="link-content">' . $fpw_options[ 'types' ][ 'link' ][ 'content' ] . '</textarea><hr />' . PHP_EOL;
+		echo '<textarea rows="12" style="width: 100%;" name="link-content">' . $fpw_options[ 'types' ][ 'link' ][ 'content' ] . '</textarea>' . PHP_EOL;
 	}
 
 	/*	Post type: custom */
@@ -404,15 +403,15 @@ function fpw_post_instructions_settings() {
 			do_action( 'media_buttons' );
 			echo '</div>' . PHP_EOL;
 			echo '</div>' . PHP_EOL;
-			echo '<div id="editorcontainer"><textarea class="theEditor" rows="12" style="width: 100%;" name="' . $post_type . '-content">' . $fpw_options[ 'types' ][ $post_type ][ 'content' ] . '</textarea></div><hr />' . PHP_EOL;
+			echo '<div id="editorcontainer"><textarea class="theEditor" rows="12" style="width: 100%;" name="' . $post_type . '-content">' . $fpw_options[ 'types' ][ $post_type ][ 'content' ] . '</textarea></div>' . PHP_EOL;
 			echo '</div>' . PHP_EOL;
 		} else {
-			echo '<textarea rows="12" style="width: 100%;" name="' . $post_type . '-content">' . $fpw_options[ 'types' ][ $post_type ][ 'content' ] . '</textarea><hr />' . PHP_EOL;
+			echo '<textarea rows="12" style="width: 100%;" name="' . $post_type . '-content">' . $fpw_options[ 'types' ][ $post_type ][ 'content' ] . '</textarea>' . PHP_EOL;
 		}					
 	}	
 
 	/*	submit button */
-	echo '</p><div class="inputbutton"><input type="submit" name="fpw_post_instructions_submit" value="' . __( 'Update Settings', 'fpw-post-instructions' ) . '" /></div>' . PHP_EOL;
+	echo '</p><hr /><div class="inputbutton"><input type="submit" name="fpw_post_instructions_submit" value="' . __( 'Update Settings', 'fpw-post-instructions' ) . '" /></div>' . PHP_EOL;
 	
 	/*	end of form */
 	echo '		</form>' . PHP_EOL;
