@@ -3,7 +3,7 @@ Contributors: frankpw
 Donate link: 
 Tags: post, page, type, custom, metabox, instructions
 Requires at least: 3.0
-Tested up to: 3.1.1
+Tested up to: 3.1.2
 Stable tag: 1.1.3
 
 Adds a metabox to post editing screens ( for posts, pages, links, and custom post types ) with instructions for editors.
@@ -24,6 +24,11 @@ Adds a metabox to post editing screens ( for posts, pages, links, and custom pos
 2. Metabox
 
 == Changelog ==
+
+= 1.1.4 =
+* Added contextual help
+* Security related code changes
+* Improved rich text editing of the content
 
 = 1.1.3 =
 * Added support for rich text editing of the content

@@ -2,8 +2,8 @@
 /*
 Plugin Name: FPW Post Instructions
 Description: Adds a metabox to Add New Post / Edit Post screens with instructions for editors.
-Plugin URI: http://fw2s.com/
-Version: 1.1.3
+Plugin URI: http://fw2s.com/2011/02/28/fpw-post-instructions-plugin/
+Version: 1.1.4
 Author: Frank P. Walentynowicz
 Author URI: http://fw2s.com/
 
@@ -23,42 +23,36 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-global $fpw_visualok;
-
-// remove_filter ('the_content',  'wpautop');
+global $fpw_visual;
 
 if ( !defined( 'FPW_POST_INSTRUCTIONS_VERSION') )
-	define( 'FPW_POST_INSTRUCTIONS_VERSION', '1.1.3' );
+	define( 'FPW_POST_INSTRUCTIONS_VERSION', '1.1.4' );
 	
 /*	--------------------------------
 	Load text domain for translation
 	----------------------------- */
 
-add_action('init', 'fpw_post_instructions_init', 1);
-
 function fpw_post_instructions_init(){
 	load_plugin_textdomain( 'fpw-post-instructions', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }	
+add_action('init', 'fpw_post_instructions_init', 1);
 
 /*	----------------------------------
 	Register plugin's menu in Settings
 	------------------------------- */
 
 //	Add plugin's options page
-add_action('admin_menu', 'fpw_post_instructions_settings_menu');
-
 function fpw_post_instructions_settings_menu() {
 	global 	$fpw_post_instructions_hook;
 	$page_title = __('FPW Post Instructions - Settings', 'fpw-post-instructions') . ' (' . FPW_POST_INSTRUCTIONS_VERSION . ')';
 	$menu_title = __('FPW Post Instructions', 'fpw-post-instructions');
 	$fpw_post_instructions_hook = add_options_page( $page_title, $menu_title, 'manage_options', 'fpw-post-instructions', 'fpw_post_instructions_settings');
 }
+add_action('admin_menu', 'fpw_post_instructions_settings_menu');
 
 /*	-------------------------------------
 	Register plugin's filters and actions
 	---------------------------------- */
-
-register_activation_hook( __FILE__, 'fpw_post_instructions_activate' );
 
 function fpw_post_instructions_activate() {
 	/*	base name for uninstall file */
@@ -79,16 +73,14 @@ function fpw_post_instructions_activate() {
 		}
 	}
 }
-
-add_filter('plugin_action_links_fpw-post-instructions/fpw-post-instructions.php', 'fpw_post_instructions_plugin_links', 10, 2);
+register_activation_hook( __FILE__, 'fpw_post_instructions_activate' );
 
 function fpw_post_instructions_plugin_links($links, $file) {
    	$settings_link = '<a href="/wp-admin/options-general.php?page=fpw-post-instructions">'.__("Settings", "fpw-post-instructions").'</a>';
 	array_unshift($links, $settings_link);
     return $links;
 }
-
-add_action('after_plugin_row_fpw-post-instructions/fpw-post-instructions.php', 'fpw_post_instructions_add_after_plugin_meta', 10, 2);
+add_filter('plugin_action_links_fpw-post-instructions/fpw-post-instructions.php', 'fpw_post_instructions_plugin_links', 10, 2);
 
 function fpw_post_instructions_add_after_plugin_meta($file,$plugin_data) {
 	$current = get_site_transient('update_plugins');
@@ -97,93 +89,105 @@ function fpw_post_instructions_add_after_plugin_meta($file,$plugin_data) {
 	$update = wp_remote_fopen($url);
 	echo '<tr class="plugin-update-tr"><td></td><td></td><td class="plugin-update"><div class="update-message">'.$update.'</div></td></tr>';
 }
-
-add_filter('contextual_help', 'fpw_post_instructions_help', 10, 3);
+add_action('after_plugin_row_fpw-post-instructions/fpw-post-instructions.php', 'fpw_post_instructions_add_after_plugin_meta', 10, 2);
 
 function fpw_post_instructions_help($contextual_help, $screen_id, $screen) {
 	global $fpw_post_instructions_hook;
 	
 	if ($screen_id == $fpw_post_instructions_hook) {
+		
+		/*	display description block */
+		$my_help  = '<h3>' . __( 'Description', 'fpw-post-instructions' ) . '</h3>' . PHP_EOL;
+		$my_help .= '<p>' . __( 'This plugin provides ability to create instructional metaboxes on editing screens for posts, pages, links, and custom post types.', 'fpw-post-instructions' );
+		$my_help .= ' ' . __( 'Its purpose is explained in detail on', 'fpw-post-instructions' ) . ' <a href="http://fw2s.com/2011/02/28/fpw-post-instructions-plugin/" target="_blank">';
+		$my_help .= __( "author's website.", "fpw-post-instructions" ) . '</a></p>' . PHP_EOL;
+
+		/*	display support block */
+		$my_help .= '<h3>' . __( 'Support', 'fpw-post-instructions' ) . '</h3>' . PHP_EOL;
+		$my_help .= '<p>' . __( 'For support please go to', 'fpw-post-instructions' ) .' <a href="http://wordpress.org/tags/fpw-post-instructions?forum_id=10" target="_blank">';
+		$my_help .= __( "plugin's support forum.", "fpw-post-instructions" ) . '</a></p>' . PHP_EOL;
+
+		/*	WordPress default help */
+		$my_help .= '<h3>WordPress</h3>' . PHP_EOL;
+		$my_help .= '<p>' . PHP_EOL;
+		$my_help .= $contextual_help;
+		$my_help .= '</p>' . PHP_EOL;
+
+		$contextual_help = $my_help;
 	}	
 	return $contextual_help; 
 }
+add_filter('contextual_help', 'fpw_post_instructions_help', 10, 3);
 
 /*	----------------
 	Rich Text Editor
 	------------- */
-add_action('admin_init', 'editor_admin_init');
 
-function editor_admin_init() {
-	global $fpw_visualok;
-	$fpw_visualok = true;
-	if ( user_can_richedit() ) {	
+function fpw_post_instructions_editor_admin_init() {
+	global $fpw_visual;
+
+	if ( user_can_richedit() ) {
+		$args = array( 'public' => TRUE, '_builtin' => FALSE );
+		$output = 'names';
+		$operator = 'and';
+		$post_types = get_post_types( $args, $output, $operator );
+		
+		// build stylesheet
+		$fi = ABSPATH . PLUGINDIR . '/' . dirname( plugin_basename( __FILE__ ) ) . '/css/fpw-post-instructions-editor.txt';
+		$fo = ABSPATH . PLUGINDIR . '/' . dirname( plugin_basename( __FILE__ ) ) . '/css/fpw-post-instructions-editor.css';
+		$o = fopen( $fo, "w" );
+		$i = fopen( $fi, "r" );
+		$fi_size = filesize( $fi );
+		$contents = fread( $i, $fi_size );
+		fclose( $i );
+		foreach ( $post_types as $post_type ) {
+			if ( ( 'post' != $post_type ) && ( 'page' != $post_type ) && ( 'link' != $post_type ) ) {
+				$contents .= '/* ' . $post_type . ' type format */' . PHP_EOL;
+				$contents .= '#editorcontainer #' . $post_type . '-content {' . PHP_EOL;
+				$contents .= "\t" . 'padding: 6px;' . PHP_EOL;
+				$contents .= "\t" . 'line-height: 150%;' . PHP_EOL;
+				$contents .= "\t" . 'border: 0 none;' . PHP_EOL;
+				$contents .= "\t" . 'outline: none;' . PHP_EOL;
+				$contents .= "\t" . 'resize: vertical;' . PHP_EOL;
+				$contents .= "\t" . '-moz-box-sizing: border-box;' . PHP_EOL;
+				$contents .= "\t" . '-webkit-box-sizing: border-box;' . PHP_EOL;
+				$contents .= "\t" . '-khtml-box-sizing: border-box;' . PHP_EOL;
+				$contents .= "\t" . 'box-sizing: border-box;' . PHP_EOL;
+				$contents .= '}' . PHP_EOL;
+				$contents .= '#' . $post_type . '-content {' . PHP_EOL;
+				$contents .= "\t" . 'margin: 0;' . PHP_EOL;
+				$contents .= "\t" . 'width: 100%;' . PHP_EOL;
+				$contents .= '}' . PHP_EOL;
+			}
+		}
+		fwrite( $o, $contents );
+		fclose( $o );
+		$fpw_visual = true;
+		wp_enqueue_script('word-count');
 		wp_enqueue_script('post');
 		wp_enqueue_script('editor');
 		add_thickbox();
 		wp_enqueue_script('media-upload');
+		wp_register_style( 'FPWPostInstructionsEditor', WP_PLUGIN_URL . '/fpw-post-instructions/css/fpw-post-instructions-editor.css' );
+		wp_enqueue_style( 'FPWPostInstructionsEditor' );
 		
-		add_action('admin_head', 'editor_admin_head');
-		function editor_admin_head() {
+		function fpw_post_instructions_editor_admin_head() {
 			wp_tiny_mce();
 		}
-		
-		//	add 'html' button to tinymce second toolbar
-		add_filter("mce_buttons_2", "fpw_enable_more_buttons");
-		function fpw_enable_more_buttons($buttons) {
-			if ( !in_array( 'code', $buttons ) )
-				$buttons[ ] = 'code';
-			return $buttons;
-		}
-		
-		//	change 'apply_source_formatting' option in tinymce
-		add_filter('tiny_mce_before_init', 'fpw_change_mce_options');
-		function fpw_change_mce_options($init) {
-			$init[ 'apply_source_formatting' ] = true;
-			return $init;
-		}
-
-		/*	Next two following functions have code borrowed from TinyMCE Advanced plugin.
-			These function complement above setting to disable stripping <br /> and <p>
-			tags by tinymce */
-
-		add_filter('htmledit_pre', 'fpw_htmledit', 999);
-		function fpw_htmledit($c) {
-			$c = str_replace( array('&amp;', '&lt;', '&gt;'), array('&', '<', '>'), $c );
-			$c = wpautop($c);
-			$c = htmlspecialchars($c, ENT_NOQUOTES);
-			return $c;
-		}
-	
-		add_action( 'admin_print_footer_scripts', 'fpw_replace', 50 );
-		function fpw_replace() {
-?>
-<script type="text/javascript">
-//<![CDATA[
-jQuery('body').bind('afterPreWpautop', function(e, o){
-	o.data = o.unfiltered
-		.replace(/caption\]\[caption/g, 'caption] [caption')
-		.replace(/<object[\s\S]+?<\/object>/g, function(a) {
-			return a.replace(/[\r\n]+/g, ' ');
-        });
-
-}).bind('afterWpautop', function(e, o){
-	o.data = o.unfiltered;
-});
-//]]>
-</script>
-<?php
-		}
+		add_action('admin_head', 'fpw_post_instructions_editor_admin_head');
 	} else {
-		$fpw_visualok = false;
+		$fpw_visual = false;
 	}
 }
+add_action('admin_init', 'fpw_post_instructions_editor_admin_init');
 
 /*	----------------------
 	Plugin's settings page
 	------------------- */
 
 function fpw_post_instructions_settings() {
-	global $fpw_visualok;
+	global $fpw_visual;
+
 	/* initialize options array */
 	$args = array( 'public' => TRUE, '_builtin' => FALSE );
 	$output = 'names';
@@ -197,21 +201,25 @@ function fpw_post_instructions_settings() {
 		foreach ( $post_types as $post_type ) {
 			$my_types[ $post_type ] = $my_type;
 		}
-		$fpw_options = array( 'clean' => FALSE, 'visual' => FALSE, 'types' => $my_types );
+		$fpw_options = array( 'clean' => FALSE, 'visual' => FALSE, 'visual-type' => 'post', 'types' => $my_types );
 	} else {
-		$do_cleanup = $fpw_options[ 'clean'];
+		$do_cleanup = $fpw_options[ 'clean' ];
 		$visualok = $fpw_options[ 'visual' ];
-		if ( is_string( $fpw_options[ 'instructions' ] ) ) {
-			$my_post = array( 'enabled' => TRUE, 'title' => '', 'content' => $fpw_options[ 'instructions' ] );
-			$my_types = array( 'post' => $my_post, 'page' => $my_type, 'link' => $my_type );
-			/*	initialize public custom post types part */
-			foreach ( $post_types as $post_type ) {
-				$my_types[ $post_type ] = $my_type;
-			}
-			$fpw_options = array( 'clean' => $do_cleanup, 'visual' => $visualok, 'types' => $my_types );
+		$visual_type = $fpw_options[ 'visual-type' ];
+		if( !is_string( $visual_type ) )
+			$fpw_options[ 'visual-type' ] = 'post';
+		foreach ( $post_types as $post_type ) {
+			if ( !is_array( $fpw_options[ 'types' ][ $post_type ] ) )
+				$fpw_options[ 'types' ][ $post_type ] = $my_type;
 		}
-		if ( !is_array( $fpw_options[ 'types' ][ 'link' ] ) )
-			$fpw_options[ 'types' ][ 'link' ] = $my_type;
+		$opt_keys = array_keys( $fpw_options[ 'types' ] );
+		$arg = array();
+		$all_post_types = get_post_types( $arg, $output, $operator );
+		array_push( $all_post_types, 'link' );
+		foreach ( $opt_keys as $opt_key ) {
+			if ( !in_array( $opt_key, $all_post_types ) )
+				unset( $fpw_options[ 'types' ][ $opt_key ] ); 
+		}
 	}
 	update_option( 'fpw_post_instructions_options', $fpw_options );
 	
@@ -223,21 +231,28 @@ function fpw_post_instructions_settings() {
 			$new_post_types = true;
 		}
 	}
-	if ( $new_post_types )
-		update_option( 'fpw_post_instructions_options', $fpw_options );
+	update_option( 'fpw_post_instructions_options', $fpw_options );
 
 	/*	read options */
 	$do_cleanup = $fpw_options[ 'clean' ];
 	$visualok = $fpw_options[ 'visual' ];
+	$visual_type = $fpw_options[ 'visual-type' ];
 	
 	/*	check if changes were submitted */
-	if ( $_POST['fpw_post_instructions_submit'] ) {    
+	if ( ( $_POST[ 'fpw_post_instructions_submit' ] ) || ( $_POST[ 'fpw_post_instructions_submit_top' ] ) ) {
+		if ( !isset( $_POST[ 'fpw-post-instructions-nonce' ] ) ) 
+			die( '<br />&nbsp;<br /><p style="padding-left: 20px; color: red"><strong>' . __( 'You did not send any credentials!', 'fpw-post-instructions' ) . '</strong></p>' );
+		if ( !wp_verify_nonce( $_POST[ 'fpw-post-instructions-nonce' ], 'fpw-post-instructions-nonce' ) ) 
+			die( '<br />&nbsp;<br /><p style="padding-left: 20px; color: red;"><strong>' . __( 'You did not send the right credentials!', 'fpw-post-instructions' ) . '</strong></p>' );
+		
 		$do_cleanup = ( $_POST[ 'cleanup' ] == 'yes' );
- 		$visualok = ( $_POST[ 'visual' ] == 'yes' );
+		$visualok = ( $_POST[ 'visual' ] == 'yes' );
+		$visual_type = $_POST[ 'fpw-radio-visual' ];
  		
 		/*	database update */
 		$fpw_options[ 'clean' ] = $do_cleanup;
 		$fpw_options[ 'visual' ] = $visualok;
+		$fpw_options[ 'visual-type' ] = $visual_type;
 		
 		/*	Post type: POST */
 		$fpw_options[ 'types' ][ 'post' ][ 'enabled' ] = ( $_POST[ 'post-enabled' ] == 'yes' );
@@ -256,9 +271,11 @@ function fpw_post_instructions_settings() {
 
 		/*	Post type: CUSTOM */
 		foreach ( $post_types as $post_type ) {
-			$fpw_options[ 'types' ][ $post_type ][ 'enabled' ] = ( $_POST[ $post_type . '-enabled' ] == 'yes' );
-			$fpw_options[ 'types' ][ $post_type ][ 'title' ] = $_POST[ $post_type . '-title' ];
-			$fpw_options[ 'types' ][ $post_type ][ 'content' ] = stripslashes( $_POST[ $post_type . '-content' ] );
+			if ( ( 'post' != $post_type ) && ( 'page' != $post_type ) && ( 'link' != $post_type ) ) {
+				$fpw_options[ 'types' ][ $post_type ][ 'enabled' ] = ( $_POST[ $post_type . '-enabled' ] == 'yes' );
+				$fpw_options[ 'types' ][ $post_type ][ 'title' ] = $_POST[ $post_type . '-title' ];
+				$fpw_options[ 'types' ][ $post_type ][ 'content' ] = stripslashes( $_POST[ $post_type . '-content' ] );
+			}
 		}
 
 		$updateok = update_option( 'fpw_post_instructions_options', $fpw_options );
@@ -267,7 +284,7 @@ function fpw_post_instructions_settings() {
 		if ( $updateok ) 
 			fpw_post_instructions_activate();
 	}
-
+	
 /*	-------------------------
 	Settings page starts here
 	---------------------- */
@@ -276,37 +293,62 @@ function fpw_post_instructions_settings() {
 	echo '	<h2>' . __( 'FPW Post Instructions - Settings', 'fpw-post-instructions' ) . ' (' . FPW_POST_INSTRUCTIONS_VERSION . ')</h2>' . PHP_EOL;
 
 	/*	display message about update status */
-	if ( $_POST['fpw_post_instructions_submit'] )
+	if ( ( $_POST[ 'fpw_post_instructions_submit' ] ) || ( $_POST[ 'fpw_post_instructions_submit_top' ] ) )
 		if ( $updateok ) {
-			echo '	<div id="message" class="updated fade"><p><strong>' . __( 'Settings updated successfully.', 'fpw-post-instructions' ) . '</strong></p></div><br />' . PHP_EOL;
+			echo '	<div id="message" class="updated fade"><p><strong>' . __( 'Updated successfully.', 'fpw-post-instructions' ) . '</strong></p></div>' . PHP_EOL;
 		} else {
-			echo '	<div id="message" class="updated fade"><p><strong>' . __( 'No changes detected. Nothing to update.', 'fpw-post-instructions' ) . '</strong></p></div><br />' . PHP_EOL;
+			echo '	<div id="message" class="updated fade"><p><strong>' . __( 'No changes detected. Nothing to update.', 'fpw-post-instructions' ) . '</strong></p></div>' . PHP_EOL;
 		}
 	
 	/*	about instructions */
 	echo	'	<p class="alignright">' . __( 'For guidelines click on', 'fpw-post-instructions' ) . ' <strong>' . __( 'Help', 'fpw-post-instructions' ) . '</strong> ' . __( 'above', 'fpw-post-instructions' ) . '.</p>' . PHP_EOL;
-
+	
 	/*	the form starts here */
 	echo '    <form name="fpw_post_instructions_form" action="';
 	print '?page=' . basename( __FILE__, '.php' );
 	echo '" method="post">' . PHP_EOL;
-	
-	/*	protect this form with nonce */
-	if ( function_exists('wp_nonce_field') ) 
-		wp_nonce_field('fpw_post_instructions_options_', 'updates'); 
 
+	/*	protect this form with nonce */
+	echo '<input name="fpw-post-instructions-nonce" type="hidden" value="' . wp_create_nonce( 'fpw-post-instructions-nonce' ) . '" />' . PHP_EOL;
+	
 	/*	cleanup checkbox */
-	echo '		<p><input type="checkbox" name="cleanup" value="yes"';
+	echo '<p><input type="checkbox" name="cleanup" value="yes"';
 	if ( $do_cleanup ) echo ' checked';
 	echo " /> " . __( "Remove plugin's data from database on uninstall", 'fpw-post-instructions' ) . '<br />' . PHP_EOL;
 	
-	/*	visual checkbox */
-	echo '		<input type="checkbox" name="visual" value="yes"';
+	/*	visual checkbox and radio selectors */
+	echo '<input type="checkbox" name="visual" value="yes"';
 	if ( $visualok ) echo ' checked';
-	echo " /> " . __( "Activate visual editor", 'fpw-post-instructions' );
-	if ( !$fpw_visualok ) 
+	echo ' /> ' . __( "Activate visual editor for:", 'fpw-post-instructions' ) . '&nbsp;&nbsp| ';
+	echo '<strong>post</strong> <input type="radio" name="fpw-radio-visual" value="post" ';
+	$tmp = '';
+	if ( 'post' == $visual_type )
+		$tmp = 'CHECKED';
+	echo $tmp . ' /> | ';
+	echo '<strong>page</strong> <input type="radio" name="fpw-radio-visual" value="page" ';
+	$tmp = '';
+	if ( 'page' == $visual_type )
+		$tmp = 'CHECKED';
+	echo $tmp . ' /> | ';
+	echo '<strong>link</strong> <input type="radio" name="fpw-radio-visual" value="link" ';
+	$tmp = '';
+	if ( 'link' == $visual_type )
+		$tmp = 'CHECKED';
+	echo $tmp . ' /> | ';
+	foreach ( $post_types as $post_type ) {
+		echo '<strong>' . $post_type . '</strong> <input type="radio" name="fpw-radio-visual" value="' . $post_type . '" ';
+		$tmp = '';
+		if ( $post_type == $visual_type )
+			$tmp = 'CHECKED';
+		echo $tmp . ' /> | ';
+	}
+	echo PHP_EOL;
+	if ( !$fpw_visual ) 
 		echo '&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;"><strong>**** ' . __( 'To use this option you must enable rich text editing in your profile!', 'fpw-post-instructions' ) . ' ****</strong></span>';
-	echo '<br /></p><hr />' . PHP_EOL;
+	echo '<br /></p>' .PHP_EOL;
+	
+	/*	top submit button */
+	echo '<div class="inputbutton"><input type="submit" name="fpw_post_instructions_submit_top" value="' . __( 'Update', 'fpw-post-instructions' ) . '" /></div><hr />' . PHP_EOL;
 
 	/*	Post type: POST */
 	echo '<p><h1>' . __( 'Type', 'fpw-post-instructions' ) . ': <em>post</em></h1>' . PHP_EOL;
@@ -317,22 +359,20 @@ function fpw_post_instructions_settings() {
 	echo '<strong>' . __( 'Title', 'fpw-post-instructions' ) . '</strong> ( ' . __( 'default', 'fpw-post-instructions' ) . ': <strong>' . __( 'Special Instructions for Editors', 'fpw-post-instructions' ) . '</strong> )<br />' . PHP_EOL;
 	echo '<input type="text" name="post-title" value="' . $fpw_options[ 'types' ][ 'post' ][ 'title' ] . '" maxlenght="60" size="60" /><br /><br />' . PHP_EOL;
 	echo '<strong>' . __( 'Content', 'fpw-post-instructions' ) . '</strong>';
-	if ( !$visualok || !$fpw_visualok )
+	if ( !$visualok || !$fpw_visual )
 		echo ' ( ' . __( 'HTML allowed', 'fpw-post-instructions' ) . ' )';
 	echo '<br />' . PHP_EOL;
-	if ( $visualok && $fpw_visualok ) {
-		echo '<div id="poststuff">' . PHP_EOL;
-		echo '<div id="editor-toolbar">' .PHP_EOL;
-		echo '<div id="media-buttons" class="hide-if-no-js">' . PHP_EOL;
-		do_action( 'media_buttons' );
-		echo '</div>' . PHP_EOL;
-		echo '</div>' . PHP_EOL;
-		echo '<div id="editorcontainer"><textarea class="theEditor" rows="12" style="width: 100%;" name="post-content">' . $fpw_options[ 'types' ][ 'post' ][ 'content' ] . '</textarea></div>' . PHP_EOL;
+	if ( $visualok && $fpw_visual && ( 'post' == $visual_type ) ) {
+		echo '<div id="poststuff">' . PHP_EOL; 
+		the_editor( $fpw_options[ 'types' ][ 'post' ][ 'content' ], 'post-content', '', true );
+		echo '<table id="post-status-info" cellspacing="0"><tbody><tr>' . PHP_EOL;
+		echo '<td id="wp-word-count"></td>' . PHP_EOL;
+		echo '</tr></tbody></table>' . PHP_EOL;
 		echo '</div>' . PHP_EOL;
 	} else {
 		echo '<textarea rows="12" style="width: 100%;" name="post-content">' . $fpw_options[ 'types' ][ 'post' ][ 'content' ] . '</textarea>' . PHP_EOL;
 	}
-	
+
 	/*	Post type: PAGE */
 	echo '<h1>' . __( 'Type', 'fpw-post-instructions' ) . ': <em>page</em></h1>' . PHP_EOL;
 	echo '<input type="checkbox" name="page-enabled" value="yes"';
@@ -342,17 +382,15 @@ function fpw_post_instructions_settings() {
 	echo '<strong>' . __( 'Title', 'fpw-post-instructions' ) . '</strong> ( ' . __( 'default', 'fpw-post-instructions' ) . ': <strong>' . __( 'Special Instructions for Editors', 'fpw-post-instructions' ) . '</strong> )<br />' . PHP_EOL;
 	echo '<input type="text" name="page-title" value="' . $fpw_options[ 'types' ][ 'page' ][ 'title' ] . '" maxlenght="60" size="60" /><br /><br />' . PHP_EOL;
 	echo '<strong>' . __( 'Content', 'fpw-post-instructions' ) . '</strong>';
-	if ( !$visualok || !$fpw_visualok )
+	if ( !$visualok || !$fpw_visual )
 		echo ' ( ' . __( 'HTML allowed', 'fpw-post-instructions' ) . ' )';
 	echo '<br />' . PHP_EOL;
-	if ( $visualok && $fpw_visualok ) {
+	if ( $visualok && $fpw_visual && ( 'page' == $visual_type ) ) {
 		echo '<div id="poststuff">' . PHP_EOL;
-		echo '<div id="editor-toolbar">' .PHP_EOL;
-		echo '<div id="media-buttons" class="hide-if-no-js">' . PHP_EOL;
-		do_action( 'media_buttons' );
-		echo '</div>' . PHP_EOL;
-		echo '</div>' . PHP_EOL;
-		echo '<div id="editorcontainer"><textarea class="theEditor" rows="12" style="width: 100%;" name="page-content">' . $fpw_options[ 'types' ][ 'page' ][ 'content' ] . '</textarea></div>' . PHP_EOL;
+		the_editor( $fpw_options[ 'types' ][ 'page' ][ 'content' ], 'page-content', '', true );
+		echo '<table id="post-status-info" cellspacing="0"><tbody><tr>' . PHP_EOL;
+		echo '<td id="wp-word-count"></td>' . PHP_EOL;
+		echo '</tr></tbody></table>' . PHP_EOL;
 		echo '</div>' . PHP_EOL;
 	} else {
 		echo '<textarea rows="12" style="width: 100%;" name="page-content">' . $fpw_options[ 'types' ][ 'page' ][ 'content' ] . '</textarea>' . PHP_EOL;
@@ -367,17 +405,15 @@ function fpw_post_instructions_settings() {
 	echo '<strong>' . __( 'Title', 'fpw-post-instructions' ) . '</strong> ( ' . __( 'default', 'fpw-post-instructions' ) . ': <strong>' . __( 'Special Instructions for Editors', 'fpw-post-instructions' ) . '</strong> )<br />' . PHP_EOL;
 	echo '<input type="text" name="link-title" value="' . $fpw_options[ 'types' ][ 'link' ][ 'title' ] . '" maxlenght="60" size="60" /><br /><br />' . PHP_EOL;
 	echo '<strong>' . __( 'Content', 'fpw-post-instructions' ) . '</strong>';
-	if ( !$visualok || !$fpw_visualok )
+	if ( !$visualok || !$fpw_visual )
 		echo ' ( ' . __( 'HTML allowed', 'fpw-post-instructions' ) . ' )';
 	echo '<br />' . PHP_EOL;
-	if ( $visualok && $fpw_visualok ) {
+	if ( $visualok && $fpw_visual && ( 'link' == $visual_type ) ) {
 		echo '<div id="poststuff">' . PHP_EOL;
-		echo '<div id="editor-toolbar">' .PHP_EOL;
-		echo '<div id="media-buttons" class="hide-if-no-js">' . PHP_EOL;
-		do_action( 'media_buttons' );
-		echo '</div>' . PHP_EOL;
-		echo '</div>' . PHP_EOL;
-		echo '<div id="editorcontainer"><textarea class="theEditor" rows="12" style="width: 100%;" name="link-content">' . $fpw_options[ 'types' ][ 'link' ][ 'content' ] . '</textarea></div>' . PHP_EOL;
+		the_editor( $fpw_options[ 'types' ][ 'link' ][ 'content' ], 'link-content', '', true );
+		echo '<table id="post-status-info" cellspacing="0"><tbody><tr>' . PHP_EOL;
+		echo '<td id="wp-word-count"></td>' . PHP_EOL;
+		echo '</tr></tbody></table>' . PHP_EOL;
 		echo '</div>' . PHP_EOL;
 	} else {
 		echo '<textarea rows="12" style="width: 100%;" name="link-content">' . $fpw_options[ 'types' ][ 'link' ][ 'content' ] . '</textarea>' . PHP_EOL;
@@ -393,17 +429,15 @@ function fpw_post_instructions_settings() {
 		echo '<strong>' . __( 'Title', 'fpw-post-instructions' ) . '</strong> ( ' . __( 'default', 'fpw-post-instructions' ) . ': <strong>' . __( 'Special Instructions for Editors', 'fpw-post-instructions' ) . '</strong> )<br />' . PHP_EOL;
 		echo '<input type="text" name="' . $post_type . '-title" value="' . $fpw_options[ 'types' ][ $post_type ][ 'title' ] . '" maxlenght="60" size="60" /><br /><br />' . PHP_EOL;
 		echo '<strong>' . __( 'Content', 'fpw-post-instructions' ) . '</strong>';
-		if ( !$visualok || !$fpw_visualok )
+		if ( !$visualok || !$fpw_visual )
 			echo ' ( ' . __( 'HTML allowed', 'fpw-post-instructions' ) . ' )';
 		echo '<br />' . PHP_EOL;
-		if ( $visualok && $fpw_visualok ) {
+		if ( $visualok && $fpw_visual && ( $post_type == $visual_type ) ) {
 			echo '<div id="poststuff">' . PHP_EOL;
-			echo '<div id="editor-toolbar">' .PHP_EOL;
-			echo '<div id="media-buttons" class="hide-if-no-js">' . PHP_EOL;
-			do_action( 'media_buttons' );
-			echo '</div>' . PHP_EOL;
-			echo '</div>' . PHP_EOL;
-			echo '<div id="editorcontainer"><textarea class="theEditor" rows="12" style="width: 100%;" name="' . $post_type . '-content">' . $fpw_options[ 'types' ][ $post_type ][ 'content' ] . '</textarea></div>' . PHP_EOL;
+			the_editor( $fpw_options[ 'types' ][ $post_type ][ 'content' ], $post_type . '-content', '', true );
+			echo '<table id="post-status-info" cellspacing="0"><tbody><tr>' . PHP_EOL;
+			echo '<td id="wp-word-count"></td>' . PHP_EOL;
+			echo '</tr></tbody></table>' . PHP_EOL;
 			echo '</div>' . PHP_EOL;
 		} else {
 			echo '<textarea rows="12" style="width: 100%;" name="' . $post_type . '-content">' . $fpw_options[ 'types' ][ $post_type ][ 'content' ] . '</textarea>' . PHP_EOL;
@@ -411,7 +445,7 @@ function fpw_post_instructions_settings() {
 	}	
 
 	/*	submit button */
-	echo '</p><hr /><div class="inputbutton"><input type="submit" name="fpw_post_instructions_submit" value="' . __( 'Update Settings', 'fpw-post-instructions' ) . '" /></div>' . PHP_EOL;
+	echo '</p><p>&nbsp;</p><hr /><div class="inputbutton"><input type="submit" name="fpw_post_instructions_submit" value="' . __( 'Update', 'fpw-post-instructions' ) . '" /></div>' . PHP_EOL;
 	
 	/*	end of form */
 	echo '		</form>' . PHP_EOL;

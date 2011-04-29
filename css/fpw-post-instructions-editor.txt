@@ -1,0 +1,49 @@
+/* post type format */
+#editorcontainer #post-content {
+	padding: 6px;
+	line-height: 150%;
+	border: 0 none;
+	outline: none;
+	resize: vertical;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-khtml-box-sizing: border-box;
+	box-sizing: border-box;
+}
+#post-content {
+	margin: 0;
+	width: 100%;
+}
+/* page type format */
+#editorcontainer #page-content {
+	padding: 6px;
+	line-height: 150%;
+	border: 0 none;
+	outline: none;
+	resize: vertical;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-khtml-box-sizing: border-box;
+	box-sizing: border-box;
+}
+#page-content {
+	margin: 0;
+	width: 100%;
+}
+/* link type format */
+#editorcontainer #link-content {
+	padding: 6px;
+	line-height: 150%;
+	border: 0 none;
+	outline: none;
+	resize: vertical;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-khtml-box-sizing: border-box;
+	box-sizing: border-box;
+}
+#link-content {
+	margin: 0;
+	width: 100%;
+}
+
