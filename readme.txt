@@ -4,26 +4,33 @@ Donate link:
 Tags: post, page, type, custom, metabox, instructions
 Requires at least: 3.0
 Tested up to: 3.1.2
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 
-Adds a metabox to post editing screens ( for posts, pages, links, and custom post types ) with instructions for editors.
+Meta boxes on admin editing screens for posts, pages, links, and custom post 
+types with instructions for editors.
 
 == Description ==
 
-**FPW Post Instructions** plugin adds a metabox to post editing screens ( for posts, pages, links, and custom post types ) with instructions for editors. The content of this meta box can be entered / modified on plugin's settings page.
+This plugin makes meta boxes on admin editing screens for posts, pages, links, 
+and custom post types with instructions for editors. The content of these meta 
+boxes can be entered/modified on plugin's settings page. Two methods of editing
+are available - plain text (HTML codes allowed) and rich text editing.
 
 == Installation ==
 
-1. Upload `fpw-post-instructions` folder to the `/wp-content/plugins/` directory
+1. Place 'fpw-post-instructions' folder in '/wp-content/plugins' directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Select Dashboard's Settings -> FPW Post Instructions and enter / modify options
 
 == Screenshots ==
 
 1. Settings Page
-2. Metabox
+2. Meta box
 
 == Changelog ==
+
+= 1.1.5 =
+* Fixed serious problems with rich text editing of version 1.1.4
+* Version 1.1.4 will be removed from repository
 
 = 1.1.4 =
 * Added contextual help
@@ -48,3 +55,14 @@ Adds a metabox to post editing screens ( for posts, pages, links, and custom pos
 
 = 1.0.0 =
 * Initial release
+
+== Upgrade Notice ==
+
+= 1.1.5 =
+This version fixes problems with using a rich text editor on settins page. If
+you have installed version 1.1.4, please upgrade to version 1.1.5 immediately!
+
+== Rich Text Editing ==
+Right now the only one rich text editor can be used per settings page. This is
+because current editing mode switching code in WordPress does not handle
+multiple instances of the rich text editor.
