@@ -209,7 +209,7 @@ function fpw_post_instructions_settings() {
 		
 		foreach ( $post_type_names as $post_type_name ) {
 			$fpw_options[ 'types' ][ $post_type_name ][ 'enabled' ] = ( 'yes' == $_POST[ $post_type_name . '-enabled' ] );
-			$fpw_options[ 'types' ][ $post_type_name ][ 'title' ] = $_POST[ $post_type_name . '-title' ];
+			$fpw_options[ 'types' ][ $post_type_name ][ 'title' ] = stripslashes( $_POST[ $post_type_name . '-title' ] );
 			if ( $fpw_visual && $visual_ok && ( $post_type_name == $visual_type ) ) {
 				$fpw_options[ 'types' ][ $post_type_name ][ 'content' ] = stripslashes( $_POST[ 'content' ] );
 			} else {
