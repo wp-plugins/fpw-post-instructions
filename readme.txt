@@ -28,6 +28,10 @@ are available - plain text (HTML codes allowed) and rich text editing.
 
 == Changelog ==
 
+= 1.1.6 =
+* Fixed bug causing scripts not being loaded when switching mode from non-visual to visual
+* Visual changes to settings page
+
 = 1.1.5 =
 * Fixed serious problems with rich text editing of version 1.1.4
 * Version 1.1.4 will be removed from repository

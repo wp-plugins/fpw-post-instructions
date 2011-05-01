@@ -4,7 +4,7 @@ Plugin Name: FPW Post Instructions
 Description: Adds metaboxes to admin editing screens for posts, pages, links,
 and custom post types with instructions for editors.
 Plugin URI: http://fw2s.com/2011/02/28/fpw-post-instructions-plugin/
-Version: 1.1.5
+Version: 1.1.6
 Author: Frank P. Walentynowicz
 Author URI: http://fw2s.com/
 
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 global $fpw_visual;
 
 if ( !defined( 'FPW_POST_INSTRUCTIONS_VERSION') )
-	define( 'FPW_POST_INSTRUCTIONS_VERSION', '1.1.5' );
+	define( 'FPW_POST_INSTRUCTIONS_VERSION', '1.1.6' );
 	
 /*	--------------------------------
 	Load text domain for translation
@@ -133,7 +133,7 @@ function fpw_post_instructions_editor_admin_init() {
 	} else {
 		$visual_ok = ( true === $fpw_options[ 'visual' ] );
 	}
-	if ( $visual_ok && $fpw_visual ) {
+	if ( $fpw_visual ) {
 		wp_enqueue_script('word-count');
 		wp_enqueue_script('post');
 		wp_enqueue_script('editor');
@@ -209,7 +209,7 @@ function fpw_post_instructions_settings() {
 		
 		foreach ( $post_type_names as $post_type_name ) {
 			$fpw_options[ 'types' ][ $post_type_name ][ 'enabled' ] = ( 'yes' == $_POST[ $post_type_name . '-enabled' ] );
-			$fpw_options[ 'types' ][ $post_type_name ][ 'title' ] = $_POST[ $post_type_name . '-title' ];
+			$fpw_options[ 'types' ][ $post_type_name ][ 'title' ] = stripslashes( $_POST[ $post_type_name . '-title' ] );
 			if ( $fpw_visual && $visual_ok && ( $post_type_name == $visual_type ) ) {
 				$fpw_options[ 'types' ][ $post_type_name ][ 'content' ] = stripslashes( $_POST[ 'content' ] );
 			} else {
@@ -228,7 +228,7 @@ function fpw_post_instructions_settings() {
 		$visual_type = $fpw_options[ 'visual-type' ];
 		
 		/* if cleanup requested make uninstall.php otherwise make uninstall.txt */
-		if ( $update_ok && $do_cleanup ) 
+		if ( $update_ok ) 
 			fpw_post_instructions_activate();
 	}
 	
@@ -237,7 +237,7 @@ function fpw_post_instructions_settings() {
 	------------------------------ */
 	
 	echo '<div class="wrap">' . PHP_EOL;
-	echo '<h2>' . __( 'FPW Post Instructions - Settings', 'fpw-post-instructions' ) . ' (' . FPW_POST_INSTRUCTIONS_VERSION . ')</h2>' . PHP_EOL;
+	echo '<div id="icon-edit-pages" class="icon32"></div><h2>' . __( 'FPW Post Instructions - Settings', 'fpw-post-instructions' ) . ' (' . FPW_POST_INSTRUCTIONS_VERSION . ')</h2>' . PHP_EOL;
 
 	/*	display message about update status */
 	if ( ( $_POST[ 'fpw_post_instructions_submit' ] ) || ( $_POST[ 'fpw_post_instructions_submit_top' ] ) )
@@ -282,11 +282,19 @@ function fpw_post_instructions_settings() {
 	echo '<br /></p>' .PHP_EOL;
 	
 	/*	top submit button */
-	echo '<div class="inputbutton"><input type="submit" name="fpw_post_instructions_submit_top" value="' . __( 'Update', 'fpw-post-instructions' ) . '" /></div><hr />' . PHP_EOL;
+	echo '<div class="inputbutton"><input class="button-primary" type="submit" name="fpw_post_instructions_submit_top" value="' . __( 'Update', 'fpw-post-instructions' ) . '" /></div>' . PHP_EOL;
 
 	foreach ( $post_type_names as $post_type_name ) {
-		echo '<p><h1>' . __( 'Type', 'fpw-post-instructions' ) . ': <em>' . $post_type_name . '</em></h1>' . PHP_EOL;
-		echo '<input type="checkbox" name="' . $post_type_name . '-enabled" value="yes"';
+		echo '<br />' . PHP_EOL;
+		echo '<table class="widefat">' . PHP_EOL;
+		echo '<thead' . PHP_EOL;
+		echo '<tr>' . PHP_EOL;
+		echo '<th><span style="font-size:1.5em">' . __( 'Type', 'fpw-post-instructions' ) . ': <em>' . $post_type_name . '</em></span></th>' .PHP_EOL;
+		echo '</tr>' . PHP_EOL;
+		echo '</thead>' . PHP_EOL;
+		echo '<tbody' . PHP_EOL;
+		echo '<tr>' . PHP_EOL;
+		echo '<td><input type="checkbox" name="' . $post_type_name . '-enabled" value="yes"';
 		if ( $fpw_options[ 'types' ][ $post_type_name ][ 'enabled' ] )
 			echo ' checked';
 		echo ' /> ' . __( 'Enabled', 'fpw-post-instructions' ) . '<br /><br />' . PHP_EOL;
@@ -306,10 +314,14 @@ function fpw_post_instructions_settings() {
 		} else {
 			echo '<textarea rows="12" style="width: 100%;" name="' .$post_type_name . '-content">' . $fpw_options[ 'types' ][ $post_type_name ][ 'content' ] . '</textarea>' . PHP_EOL;
 		}
+		echo '</td>' . PHP_EOL;
+		echo '</tr>' . PHP_EOL;
+		echo '</tbody>' . PHP_EOL;
+		echo '</table>' . PHP_EOL;
 	}
 
 	/*	BOTTOM submit button */
-	echo '</p><p>&nbsp;</p><hr /><div class="inputbutton"><input type="submit" name="fpw_post_instructions_submit" value="' . __( 'Update', 'fpw-post-instructions' ) . '" /></div>' . PHP_EOL;
+	echo '<br /><div class="inputbutton"><input class="button-primary" type="submit" name="fpw_post_instructions_submit" value="' . __( 'Update', 'fpw-post-instructions' ) . '" /></div>' . PHP_EOL;
 	
 	/*	end of form */
 	echo '</form>' . PHP_EOL;
