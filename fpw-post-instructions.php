@@ -7,7 +7,6 @@ Plugin URI: http://fw2s.com/2011/02/28/fpw-post-instructions-plugin/
 Version: 1.1.6
 Author: Frank P. Walentynowicz
 Author URI: http://fw2s.com/
-
 Copyright 2011 Frank P. Walentynowicz (email : frankpw@fw2s.com)
 
 This program is free software; you can redistribute it and/or modify
@@ -28,12 +27,12 @@ global $fpw_visual;
 
 if ( !defined( 'FPW_POST_INSTRUCTIONS_VERSION') )
 	define( 'FPW_POST_INSTRUCTIONS_VERSION', '1.1.6' );
-	
+
 /*	--------------------------------
 	Load text domain for translation
 	----------------------------- */
 
-function fpw_post_instructions_init(){
+function fpw_post_instructions_init() {
 	load_plugin_textdomain( 'fpw-post-instructions', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }	
 add_action('init', 'fpw_post_instructions_init', 1);
@@ -42,9 +41,9 @@ add_action('init', 'fpw_post_instructions_init', 1);
 	Register plugin's menu in Settings
 	------------------------------- */
 
-//	Add plugin's options page
 function fpw_post_instructions_settings_menu() {
 	global 	$fpw_post_instructions_hook;
+
 	$page_title = __('FPW Post Instructions - Settings', 'fpw-post-instructions') . ' (' . FPW_POST_INSTRUCTIONS_VERSION . ')';
 	$menu_title = __('FPW Post Instructions', 'fpw-post-instructions');
 	$fpw_post_instructions_hook = add_options_page( $page_title, $menu_title, 'manage_options', 'fpw-post-instructions', 'fpw_post_instructions_settings');
@@ -58,20 +57,23 @@ add_action('admin_menu', 'fpw_post_instructions_settings_menu');
 function fpw_post_instructions_activate() {
 	/*	base name for uninstall file */
 	$uninstall = ABSPATH . PLUGINDIR . '/' . dirname( plugin_basename( __FILE__ ) ) . '/uninstall.';
-	
+
 	/*	get options array */
 	$fpw_options = get_option( 'fpw_post_instructions_options' );
-	if ( !$fpw_options )
-		exit;
 	
+	/*	if no options yet let's build it */
+	if ( !$fpw_options ) {
+		$fpw_options = array( 'clean' => false, 'visual' => false, 'visual-type' => 'post', 'types' => array() );
+	} 
+
 	/* if cleanup requested make uninstall.php otherwise make uninstall.txt */
-	if ( true === $fpw_options[ 'clean' ] )
-		if ( file_exists( $uninstall . 'txt' ) ) {
+	if ( $fpw_options[ 'clean' ] ) {
+		if ( file_exists( $uninstall . 'txt' ) )
 			rename( $uninstall . 'txt', $uninstall . 'php' );
-		} else {
-			if ( file_exists( $uninstall . 'php' ) )
-				rename( $uninstall . 'php', $uninstall . 'txt' );
-		}
+	} else {
+		if ( file_exists( $uninstall . 'php' ) )
+			rename( $uninstall . 'php', $uninstall . 'txt' );
+	}
 }
 register_activation_hook( __FILE__, 'fpw_post_instructions_activate' );
 
@@ -84,7 +86,8 @@ add_filter('plugin_action_links_fpw-post-instructions/fpw-post-instructions.php'
 
 function fpw_post_instructions_add_after_plugin_meta($file,$plugin_data) {
 	$current = get_site_transient('update_plugins');
-	if (!isset($current->response[$file])) return false;
+	if (!isset($current->response[$file]))
+		return false;
 	$url = "http://fw2s.com/fpwpostinstructionsupdate.txt";
 	$update = wp_remote_fopen($url);
 	echo '<tr class="plugin-update-tr"><td></td><td></td><td class="plugin-update"><div class="update-message">'.$update.'</div></td></tr>';
@@ -93,9 +96,9 @@ add_action('after_plugin_row_fpw-post-instructions/fpw-post-instructions.php', '
 
 function fpw_post_instructions_help($contextual_help, $screen_id, $screen) {
 	global $fpw_post_instructions_hook;
-	
+
 	if ($screen_id == $fpw_post_instructions_hook) {
-		
+
 		/*	display description block */
 		$my_help  = '<h3>' . __( 'Description', 'fpw-post-instructions' ) . '</h3>' . PHP_EOL;
 		$my_help .= '<p>' . __( 'This plugin provides ability to create instructional metaboxes on editing screens for posts, pages, links, and custom post types.', 'fpw-post-instructions' );
@@ -111,8 +114,8 @@ function fpw_post_instructions_help($contextual_help, $screen_id, $screen) {
 		$my_help .= '<h3>WordPress</h3>' . PHP_EOL;
 		$my_help .= '<p>' . PHP_EOL;
 		$my_help .= $contextual_help;
-		$my_help .= '</p>' . PHP_EOL;
 
+		$my_help .= '</p>' . PHP_EOL;
 		$contextual_help = $my_help;
 	}	
 	return $contextual_help; 
@@ -125,20 +128,23 @@ add_filter('contextual_help', 'fpw_post_instructions_help', 10, 3);
 
 function fpw_post_instructions_editor_admin_init() {
 	global $fpw_visual;
-	
+
 	$fpw_visual = user_can_richedit();
 	$fpw_options = get_option( 'fpw_post_instructions_options' );
+
 	if ( !fpw_options ) {
 		$visual_ok = false;
 	} else {
 		$visual_ok = ( true === $fpw_options[ 'visual' ] );
 	}
+
+	wp_enqueue_script('word-count');
+	wp_enqueue_script('post');
+	wp_enqueue_script('editor');
+	add_thickbox();
+	wp_enqueue_script('media-upload');
+
 	if ( $fpw_visual ) {
-		wp_enqueue_script('word-count');
-		wp_enqueue_script('post');
-		wp_enqueue_script('editor');
-		add_thickbox();
-		wp_enqueue_script('media-upload');
 
 		function fpw_post_instructions_editor_admin_head() {
 			wp_tiny_mce();
@@ -161,13 +167,16 @@ function fpw_post_instructions_settings() {
 	$operator = 'and';
 	$post_type_names = array( 'post', 'page', 'link' );
 	$cust_type_names = get_post_types( $args, $output, $operator );
+
     foreach ( $cust_type_names as $cust_type_name )
     	array_push( $post_type_names, $cust_type_name );
+
 	$my_type = array( 'enabled' => false, 'title' => '', 'content' => '' );
 	$my_types = array();
+
 	foreach ( $post_type_names as $post_type_name )
 		$my_types[ $post_type_name ] = $my_type;
-	
+
 	/*	get plugin's options */
 	$fpw_options = get_option( 'fpw_post_instructions_options' );
 	if ( !$fpw_options ) {
@@ -178,13 +187,16 @@ function fpw_post_instructions_settings() {
         $do_cleanup = ( true === $fpw_options[ 'clean' ] );
 		$visual_ok = ( true === $fpw_options[ 'visual' ] );
 		$visual_type = is_string( $fpw_options[ 'visual-type' ] ) ? $fpw_options[ 'visual-type' ] : 'post';
+
 		$fpw_options[ 'clean' ] = $do_cleanup;
 		$fpw_options[ 'visual' ] = $visual_ok;
 		$fpw_options[ 'visual-type' ] = $visual_type;
+
 		foreach ( $post_type_names as $post_type_name ) {
 			if ( !is_array( $fpw_options[ 'types' ][ $post_type_name ] ) )
 				$fpw_options[ 'types' ][ $post_type_name ] = $my_type;
 		}
+
 		/*	now let's remove deleted custom post types arrays from options */
 		$opt_keys = array_keys( $fpw_options[ 'types' ] );
 		foreach ( $opt_keys as $opt_key ) {
@@ -197,16 +209,16 @@ function fpw_post_instructions_settings() {
 	/*	make sure we have following two as pre POST values */
 	$visual_ok = $fpw_options[ 'visual' ];
 	$visual_type = $fpw_options[ 'visual-type' ];
-	
+
 	$update_ok = false;
-	
+
 	/*	check if changes were submitted */
 	if ( ( $_POST[ 'fpw_post_instructions_submit' ] ) || ( $_POST[ 'fpw_post_instructions_submit_top' ] ) ) {
 		if ( !isset( $_POST[ 'fpw-post-instructions-nonce' ] ) ) 
 			die( '<br />&nbsp;<br /><p style="padding-left: 20px; color: red"><strong>' . __( 'You did not send any credentials!', 'fpw-post-instructions' ) . '</strong></p>' );
 		if ( !wp_verify_nonce( $_POST[ 'fpw-post-instructions-nonce' ], 'fpw-post-instructions-nonce' ) ) 
 			die( '<br />&nbsp;<br /><p style="padding-left: 20px; color: red;"><strong>' . __( 'You did not send the right credentials!', 'fpw-post-instructions' ) . '</strong></p>' );
-		
+
 		foreach ( $post_type_names as $post_type_name ) {
 			$fpw_options[ 'types' ][ $post_type_name ][ 'enabled' ] = ( 'yes' == $_POST[ $post_type_name . '-enabled' ] );
 			$fpw_options[ 'types' ][ $post_type_name ][ 'title' ] = stripslashes( $_POST[ $post_type_name . '-title' ] );
@@ -222,20 +234,20 @@ function fpw_post_instructions_settings() {
 		$fpw_options[ 'visual-type' ] = $_POST[ 'fpw-radio-visual' ];
 
 		$update_ok = update_option( 'fpw_post_instructions_options', $fpw_options );
-		
+
 		$do_cleanup = $fpw_options[ 'clean' ];
 		$visual_ok = $fpw_options[ 'visual' ];
 		$visual_type = $fpw_options[ 'visual-type' ];
-		
+
 		/* if cleanup requested make uninstall.php otherwise make uninstall.txt */
 		if ( $update_ok ) 
 			fpw_post_instructions_activate();
 	}
-	
+
 /*	---------------------------------
 	HTML of settings page starts here
 	------------------------------ */
-	
+
 	echo '<div class="wrap">' . PHP_EOL;
 	echo '<div id="icon-edit-pages" class="icon32"></div><h2>' . __( 'FPW Post Instructions - Settings', 'fpw-post-instructions' ) . ' (' . FPW_POST_INSTRUCTIONS_VERSION . ')</h2>' . PHP_EOL;
 
@@ -246,28 +258,27 @@ function fpw_post_instructions_settings() {
 		} else {
 			echo '<div id="message" class="updated fade"><p><strong>' . __( 'No changes detected. Nothing to update.', 'fpw-post-instructions' ) . '</strong></p></div>' . PHP_EOL;
 		}
-	
+
 	/*	about HELP instructions */
 	echo '<p class="alignright">' . __( 'For guidelines click on', 'fpw-post-instructions' ) . ' <strong>' . __( 'Help', 'fpw-post-instructions' ) . '</strong> ' . __( 'above', 'fpw-post-instructions' ) . '.</p>' . PHP_EOL;
-	
+
 	/*	the form starts here */
 	echo '<form name="fpw_post_instructions_form" action="?page=' . basename( __FILE__, '.php' ) . '" method="post">' . PHP_EOL;
 
 	/*	protect this form with nonce */
 	echo '<input name="fpw-post-instructions-nonce" type="hidden" value="' . wp_create_nonce( 'fpw-post-instructions-nonce' ) . '" />' . PHP_EOL;
-	
+
 	/*	cleanup checkbox */
 	echo '<p><input type="checkbox" name="cleanup" value="yes"';
 	if ( $do_cleanup ) echo ' checked';
 	echo " /> " . __( "Remove plugin's data from database on uninstall", 'fpw-post-instructions' ) . '<br />' . PHP_EOL;
-	
+
 	/*	visual checkbox and radio selectors */
 	echo '<input type="checkbox" name="visual" value="yes"';
 	if ( $visual_ok ) 
 		echo ' checked';
 	echo ' /> ' . __( "Activate visual editor for:", 'fpw-post-instructions' ) . '&nbsp;&nbsp| ';
-	
-	/*	radio selectors for post type visual editing */
+
 	foreach ( $post_type_names as $post_type_name ) {
 		echo '<strong>' . $post_type_name . '</strong> <input type="radio" name="fpw-radio-visual" value="' . $post_type_name . '" ';
 		$tmp = '';
@@ -275,15 +286,17 @@ function fpw_post_instructions_settings() {
 			$tmp = 'CHECKED';
 		echo $tmp . ' /> | ';
 	}
+
 	echo PHP_EOL;
-	
+
 	if ( !$fpw_visual ) 
 		echo '&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;"><strong>**** ' . __( 'To use this option you must enable rich text editing in your profile!', 'fpw-post-instructions' ) . ' ****</strong></span>';
 	echo '<br /></p>' .PHP_EOL;
-	
+
 	/*	top submit button */
 	echo '<div class="inputbutton"><input class="button-primary" type="submit" name="fpw_post_instructions_submit_top" value="' . __( 'Update', 'fpw-post-instructions' ) . '" /></div>' . PHP_EOL;
 
+	/*	for each post type */
 	foreach ( $post_type_names as $post_type_name ) {
 		echo '<br />' . PHP_EOL;
 		echo '<table class="widefat">' . PHP_EOL;
@@ -312,7 +325,7 @@ function fpw_post_instructions_settings() {
 			echo '</tr></tbody></table>' . PHP_EOL;
 			echo '</div>' . PHP_EOL;
 		} else {
-			echo '<textarea rows="12" style="width: 100%;" name="' .$post_type_name . '-content">' . $fpw_options[ 'types' ][ $post_type_name ][ 'content' ] . '</textarea>' . PHP_EOL;
+			echo '<textarea rows="12" style="width: 100%;" name="' . $post_type_name . '-content">' . $fpw_options[ 'types' ][ $post_type_name ][ 'content' ] . '</textarea>' . PHP_EOL;
 		}
 		echo '</td>' . PHP_EOL;
 		echo '</tr>' . PHP_EOL;
@@ -322,7 +335,7 @@ function fpw_post_instructions_settings() {
 
 	/*	BOTTOM submit button */
 	echo '<br /><div class="inputbutton"><input class="button-primary" type="submit" name="fpw_post_instructions_submit" value="' . __( 'Update', 'fpw-post-instructions' ) . '" /></div>' . PHP_EOL;
-	
+
 	/*	end of form */
 	echo '</form>' . PHP_EOL;
 	echo '</p>' . PHP_EOL;
@@ -330,11 +343,10 @@ function fpw_post_instructions_settings() {
 }
 
 /*	add meta box to post editing screen */
-add_action('add_meta_boxes', 'fpw_post_instructions_add_custom_box');
-
 function fpw_post_instructions_add_custom_box() {
 	$opt = get_option( 'fpw_post_instructions_options' );
 	if ( is_array( $opt ) )
+
 		foreach ( $opt[ 'types' ] as $key => $value ) {
 			if ( $value[ 'enabled' ] ) {
 				$title = $value[ 'title' ];
@@ -344,7 +356,9 @@ function fpw_post_instructions_add_custom_box() {
 			}
 		}
 }
+add_action('add_meta_boxes', 'fpw_post_instructions_add_custom_box');
 
+/*	display metabox */
 function fpw_post_instructions_box( $post, $metabox ) {
 	echo $metabox[ 'args' ][ 'content' ];
 }
