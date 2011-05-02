@@ -61,8 +61,8 @@ function fpw_post_instructions_activate() {
 	
 	/*	get options array */
 	$fpw_options = get_option( 'fpw_post_instructions_options' );
-	if ( !$fpw_options )
-		exit;
+	// if ( !$fpw_options )
+	//	exit;
 	
 	/* if cleanup requested make uninstall.php otherwise make uninstall.txt */
 	if ( true === $fpw_options[ 'clean' ] )
