@@ -4,7 +4,7 @@ Donate link:
 Tags: post, page, type, custom, metabox, instructions
 Requires at least: 3.0
 Tested up to: 3.1.2
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 
 Meta boxes on admin editing screens for posts, pages, links, and custom post 
 types with instructions for editors.
@@ -27,6 +27,9 @@ are available - plain text (HTML codes allowed) and rich text editing.
 2. Meta box
 
 == Changelog ==
+
+= 1.1.7
+* Fixed problem with metabox content display ( paragraphs displayed as one long line )
 
 = 1.1.6 =
 * Fixed bug causing scripts not being loaded when switching mode from non-visual to visual
