@@ -27,7 +27,7 @@ global $fpw_visual;
 
 if ( !defined( 'FPW_POST_INSTRUCTIONS_VERSION') )
 	define( 'FPW_POST_INSTRUCTIONS_VERSION', '1.1.7' );
-
+	
 /*	--------------------------------
 	Load text domain for translation
 	----------------------------- */
@@ -78,7 +78,7 @@ function fpw_post_instructions_activate() {
 register_activation_hook( __FILE__, 'fpw_post_instructions_activate' );
 
 function fpw_post_instructions_plugin_links($links, $file) {
-   	$settings_link = '<a href="/wp-admin/options-general.php?page=fpw-post-instructions">'.__("Settings", "fpw-post-instructions").'</a>';
+   	$settings_link = '<a href="' . site_url('/wp-admin/') . 'options-general.php?page=fpw-post-instructions">' . __("Settings", "fpw-post-instructions").'</a>';
 	array_unshift($links, $settings_link);
     return $links;
 }
@@ -250,6 +250,8 @@ function fpw_post_instructions_settings() {
 
 	echo '<div class="wrap">' . PHP_EOL;
 	echo '<div id="icon-edit-pages" class="icon32"></div><h2>' . __( 'FPW Post Instructions - Settings', 'fpw-post-instructions' ) . ' (' . FPW_POST_INSTRUCTIONS_VERSION . ')</h2>' . PHP_EOL;
+
+	// echo ABSPATH . PLUGINDIR . '/' . dirname( plugin_basename( __FILE__ ) ) . '/uninstall.txt';
 
 	/*	display message about update status */
 	if ( ( $_POST[ 'fpw_post_instructions_submit' ] ) || ( $_POST[ 'fpw_post_instructions_submit_top' ] ) )
