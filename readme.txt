@@ -29,7 +29,7 @@ are available - plain text (HTML codes allowed) and rich text editing.
 == Changelog ==
 
 = 1.1.7 =
-* Fixed problem with metabox content display ( paragraphs displayed as one long line )
+* Fixed problem with metabox content display - paragraphs displayed as one long line
 
 = 1.1.6 =
 * Fixed bug causing scripts not being loaded when switching mode from non-visual to visual
