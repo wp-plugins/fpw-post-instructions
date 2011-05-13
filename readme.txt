@@ -28,6 +28,10 @@ are available - plain text (HTML codes allowed) and rich text editing.
 
 == Changelog ==
 
+= 1.1.9 =
+* Added FPW Plugins to admin bar for WordPress 3.1+
+* Fixed problem of settings page overlapping its footer
+
 = 1.1.8 =
 * Fixed incorrect link to Settings on Plugins page for websites which WordPress core files reside in a subfolder
 

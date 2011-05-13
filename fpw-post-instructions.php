@@ -4,7 +4,7 @@ Plugin Name: FPW Post Instructions
 Description: Adds metaboxes to admin editing screens for posts, pages, links,
 and custom post types with instructions for editors.
 Plugin URI: http://fw2s.com/2011/02/28/fpw-post-instructions-plugin/
-Version: 1.1.8
+Version: 1.1.9
 Author: Frank P. Walentynowicz
 Author URI: http://fw2s.com/
 Copyright 2011 Frank P. Walentynowicz (email : frankpw@fw2s.com)
@@ -23,10 +23,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-global $fpw_visual;
+global $fpw_visual, $wp_version;
 
 if ( !defined( 'FPW_POST_INSTRUCTIONS_VERSION') )
-	define( 'FPW_POST_INSTRUCTIONS_VERSION', '1.1.8' );
+	define( 'FPW_POST_INSTRUCTIONS_VERSION', '1.1.9' );
 	
 /*	--------------------------------
 	Load text domain for translation
@@ -47,12 +47,40 @@ function fpw_post_instructions_settings_menu() {
 	$page_title = __('FPW Post Instructions - Settings', 'fpw-post-instructions') . ' (' . FPW_POST_INSTRUCTIONS_VERSION . ')';
 	$menu_title = __('FPW Post Instructions', 'fpw-post-instructions');
 	$fpw_post_instructions_hook = add_options_page( $page_title, $menu_title, 'manage_options', 'fpw-post-instructions', 'fpw_post_instructions_settings');
+	add_action('admin_print_styles-' . $fpw_post_instructions_hook, 'fpw_post_instructions_admin_styles');
 }
 add_action('admin_menu', 'fpw_post_instructions_settings_menu');
 
 /*	-------------------------------------
 	Register plugin's filters and actions
 	---------------------------------- */
+
+//	Register plugin's menu in admin bar for WP 3.1+
+if ( '3.1' <= $wp_version ) {
+	function fpw_post_instructions_settings_in_admin_bar() {
+		if ( current_user_can( 'edit_plugins' ) && is_admin() ) {
+			global $wp_admin_bar;
+
+			$main = array(
+				'id' => 'fpw_plugins',
+				'title' => __( 'FPW Plugins', 'fpw-post-instructions' ),
+				'href' => '#' );
+
+			$subm = array(
+				'id' => 'fpw_bar_post_instructions',
+				'parent' => 'fpw_plugins',
+				'title' => __( 'FPW Post Instructions', 'fpw-post-instructions' ),
+				'href' => get_admin_url() . 'options-general.php?page=fpw-post-instructions' );
+	
+			$addmain = ( is_array($wp_admin_bar->menu->fpw_plugins) ) ? false : true; 
+
+			if ( $addmain )
+				$wp_admin_bar->add_menu( $main );
+			$wp_admin_bar->add_menu( $subm );
+		}
+	}
+	add_action( 'admin_bar_menu', 'fpw_post_instructions_settings_in_admin_bar', 1020 );
+}
 
 function fpw_post_instructions_activate() {
 	/*	base name for uninstall file */
@@ -122,11 +150,8 @@ function fpw_post_instructions_help($contextual_help, $screen_id, $screen) {
 }
 add_filter('contextual_help', 'fpw_post_instructions_help', 10, 3);
 
-/*	----------------
-	Rich Text Editor
-	------------- */
-
-function fpw_post_instructions_editor_admin_init() {
+//	load scripts and styles
+function fpw_post_instructions_admin_styles() {
 	global $fpw_visual;
 
 	$fpw_visual = user_can_richedit();
@@ -152,7 +177,6 @@ function fpw_post_instructions_editor_admin_init() {
 		add_action('admin_head', 'fpw_post_instructions_editor_admin_head');
 	}
 }
-add_action('admin_init', 'fpw_post_instructions_editor_admin_init');
 
 /*	----------------------
 	Plugin's settings page
@@ -322,10 +346,10 @@ function fpw_post_instructions_settings() {
 		if ( $fpw_visual && $visual_ok && ( $post_type_name == $visual_type ) ) {
 			echo '<div id="poststuff">' . PHP_EOL;
 			the_editor( $fpw_options[ 'types' ][ $post_type_name ][ 'content' ], 'content', '', true );
+			echo '</div>' . PHP_EOL;
 			echo '<table id="post-status-info" cellspacing="0"><tbody><tr>' . PHP_EOL;
 			echo '<td id="wp-word-count"></td>' . PHP_EOL;
 			echo '</tr></tbody></table>' . PHP_EOL;
-			echo '</div>' . PHP_EOL;
 		} else {
 			echo '<textarea rows="12" style="width: 100%;" name="' . $post_type_name . '-content">' . $fpw_options[ 'types' ][ $post_type_name ][ 'content' ] . '</textarea>' . PHP_EOL;
 		}
@@ -341,7 +365,7 @@ function fpw_post_instructions_settings() {
 	/*	end of form */
 	echo '</form>' . PHP_EOL;
 	echo '</p>' . PHP_EOL;
-	echo '</div></div>' . PHP_EOL;
+	echo '</div>' . PHP_EOL;
 }
 
 /*	add meta box to post editing screen */
