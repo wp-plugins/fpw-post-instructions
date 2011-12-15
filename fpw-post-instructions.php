@@ -252,41 +252,43 @@ function fpw_post_instructions_add_after_plugin_meta($file,$plugin_data) {
 add_action('after_plugin_row_fpw-post-instructions/fpw-post-instructions.php', 'fpw_post_instructions_add_after_plugin_meta', 10, 2);
 
 //	load scripts
-function fpw_post_instructions_enqueue_scripts() {
+function fpw_post_instructions_enqueue_scripts( $hook ) {
 	global	$wp_version,
 			$fpw_visual;
-	
-	$fpw_visual = user_can_richedit();
+			
+	if ( 'settings_page_fpw-post-instructions' == $hook ) {	
+		$fpw_visual = user_can_richedit();
 
-	wp_register_script( 'fpw-fpi-script', plugins_url( '/fpw-post-instructions/js/fpw-fpi-script.js' ), array( 'jquery' ) );
-	wp_enqueue_script( 'fpw-fpi-script' );
+		wp_register_script( 'fpw-fpi-script', plugins_url( '/fpw-post-instructions/js/fpw-fpi-script.js' ), array( 'jquery' ) );
+		wp_enqueue_script( 'fpw-fpi-script' );
 
-	wp_localize_script( 'fpw-fpi-script', 'fpw_fpi_text', array(
-		'fpw_fpi_help_link_text'	=> esc_html( __( 'FPW Post Instructions - Help', 'fpw-fpi' ) )
-	));
+		wp_localize_script( 'fpw-fpi-script', 'fpw_fpi_text', array(
+			'fpw_fpi_help_link_text'	=> esc_html( __( 'FPW Post Instructions - Help', 'fpw-fpi' ) )
+		));
 
-	if ( '3.3' > $wp_version ) {
+		if ( '3.3' > $wp_version ) {
 
-		/*	check if changes were submitted */
-		if ( ( $_POST[ 'fpw_post_instructions_submit' ] ) || ( $_POST[ 'fpw_post_instructions_submit_top' ] ) ) {
-			$visual_checked = ( 'yes' == $_POST[ 'visual' ] );
-		} else {
-			/*	get options array */
-			$opt = fpw_post_instructions_get_options();
-			$visual_checked = $opt[ 'visual' ];
-		}
+			/*	check if changes were submitted */
+			if ( ( $_POST[ 'fpw_post_instructions_submit' ] ) || ( $_POST[ 'fpw_post_instructions_submit_top' ] ) ) {
+				$visual_checked = ( 'yes' == $_POST[ 'visual' ] );
+			} else {
+				/*	get options array */
+				$opt = fpw_post_instructions_get_options();
+				$visual_checked = $opt[ 'visual' ];
+			}
 		
-		if ( $visual_checked ) {
-			// wp_enqueue_script( 'word-count' );
-			wp_enqueue_script( 'post' );
-			wp_enqueue_script( 'editor' );
-			add_thickbox();
-			wp_enqueue_script( 'media-upload' );
-			if ( $fpw_visual ) {
-				function fpw_post_instructions_editor_admin_head() {
-					wp_tiny_mce();
+			if ( $visual_checked ) {
+				// wp_enqueue_script( 'word-count' );
+				wp_enqueue_script( 'post' );
+				wp_enqueue_script( 'editor' );
+				add_thickbox();
+				wp_enqueue_script( 'media-upload' );
+				if ( $fpw_visual ) {
+					function fpw_post_instructions_editor_admin_head() {
+						wp_tiny_mce();
+					}
+					add_action( 'admin_head', 'fpw_post_instructions_editor_admin_head' );
 				}
-				add_action( 'admin_head', 'fpw_post_instructions_editor_admin_head' );
 			}
 		}
 	}
