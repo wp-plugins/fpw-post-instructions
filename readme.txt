@@ -84,7 +84,7 @@ you have installed version 1.1.4, please upgrade to version 1.1.5 immediately!
 
 WordPress version < 3.3
 
-Right now the only one rich text editor can be used per settings page. This is
+Only one rich text editor can be used per settings page. This is
 because current editing mode switching code in WordPress does not handle
 multiple instances of the rich text editor.
 
