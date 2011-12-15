@@ -1,9 +1,9 @@
 === FPW Post Instructions ===
 Contributors: frankpw
-Donate link: 
+Donate link: http://fw2s.com/payments-and-donations/
 Tags: post, page, type, custom, metabox, instructions
 Requires at least: 3.0
-Tested up to: 3.1.2
+Tested up to: 3.3
 Stable tag: 1.1.9
 
 Meta boxes on admin editing screens for posts, pages, links, and custom post 
@@ -27,6 +27,10 @@ are available - plain text (HTML codes allowed) and rich text editing.
 2. Meta box
 
 == Changelog ==
+
+= 1.2.0 =
+* Added WordPress 3.3 support
+* Modified contextual help 
 
 = 1.1.9 =
 * Added FPW Plugins to admin bar for WordPress 3.1+
