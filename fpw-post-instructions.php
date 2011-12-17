@@ -263,7 +263,7 @@ function fpw_post_instructions_enqueue_scripts( $hook ) {
 		wp_enqueue_script( 'fpw-fpi-script' );
 
 		wp_localize_script( 'fpw-fpi-script', 'fpw_fpi_text', array(
-			'fpw_fpi_help_link_text'	=> esc_html( __( 'FPW Post Instructions - Help', 'fpw-fpi' ) )
+			'fpw_fpi_help_link_text'	=> esc_html( __( 'Help for FPW Post Instructions', 'fpw-fpi' ) )
 		));
 
 		if ( '3.3' > $wp_version ) {
