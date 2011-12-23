@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the FPW Post Instructions package.
 msgid ""
 msgstr ""
-"Project-Id-Version: FPW Post Instructions 1.2.0\n"
+"Project-Id-Version: FPW Post Instructions 1.2.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/fpw-post-instructions\n"
-"POT-Creation-Date: 2011-12-15 05:39:05+00:00\n"
+"POT-Creation-Date: 2011-12-23 13:17:36+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,44 +12,44 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.2.0)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.2.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: fpw-post-instructions.php:71 fpw-post-instructions.php:72
-#: fpw-post-instructions.php:197 fpw-post-instructions.php:377
+#: fpw-post-instructions.php:85 fpw-post-instructions.php:86
+#: fpw-post-instructions.php:259 fpw-post-instructions.php:387
 msgid "FPW Post Instructions"
 msgstr ""
 
-#: fpw-post-instructions.php:89 fpw-post-instructions.php:157
+#: fpw-post-instructions.php:101 fpw-post-instructions.php:168
 msgid "More information"
 msgstr ""
 
-#: fpw-post-instructions.php:90 fpw-post-instructions.php:159
+#: fpw-post-instructions.php:102 fpw-post-instructions.php:170
 msgid "Plugin's site"
 msgstr ""
 
-#: fpw-post-instructions.php:91 fpw-post-instructions.php:160
+#: fpw-post-instructions.php:103 fpw-post-instructions.php:171
 msgid "Support"
 msgstr ""
 
-#: fpw-post-instructions.php:97 fpw-post-instructions.php:106
-#: fpw-post-instructions.php:137
+#: fpw-post-instructions.php:109 fpw-post-instructions.php:118
+#: fpw-post-instructions.php:148
 msgid "Introduction"
 msgstr ""
 
-#: fpw-post-instructions.php:99 fpw-post-instructions.php:143
+#: fpw-post-instructions.php:111 fpw-post-instructions.php:154
 msgid ""
 "New features in WordPress 3.0+ as custom post types and post formats "
 "introduced some challenges to webmasters of corporate websites with many "
 "users holding post publishing / editing privileges."
 msgstr ""
 
-#: fpw-post-instructions.php:100 fpw-post-instructions.php:144
+#: fpw-post-instructions.php:112 fpw-post-instructions.php:155
 msgid ""
 "Especially post formats which use the standard post editing screens but may "
 "have certain rules imposed by the implementation."
 msgstr ""
 
-#: fpw-post-instructions.php:101 fpw-post-instructions.php:145
+#: fpw-post-instructions.php:113 fpw-post-instructions.php:156
 msgid ""
 "Webmasters could try the following options: make a course / training for "
 "editors, distribute instructions for editors in a form of printed material, "
@@ -60,7 +60,7 @@ msgid ""
 "people tend to avoid reading documentation."
 msgstr ""
 
-#: fpw-post-instructions.php:102 fpw-post-instructions.php:147
+#: fpw-post-instructions.php:114 fpw-post-instructions.php:158
 msgid ""
 "This plugin adds a metabox to post editing screens with special instructions "
 "for editors. You can make it as eye-catching as you want ( html in the "
@@ -68,119 +68,123 @@ msgid ""
 "be forgotten or misplaced."
 msgstr ""
 
-#: fpw-post-instructions.php:111 fpw-post-instructions.php:122
-#: fpw-post-instructions.php:138
+#: fpw-post-instructions.php:123 fpw-post-instructions.php:134
+#: fpw-post-instructions.php:149
 msgid "Options"
 msgstr ""
 
-#: fpw-post-instructions.php:112 fpw-post-instructions.php:149
-#: fpw-post-instructions.php:396
+#: fpw-post-instructions.php:124 fpw-post-instructions.php:160
+#: fpw-post-instructions.php:406
 msgid "Remove plugin's data from database on uninstall"
 msgstr ""
 
-#: fpw-post-instructions.php:112 fpw-post-instructions.php:114
-#: fpw-post-instructions.php:117 fpw-post-instructions.php:149
-#: fpw-post-instructions.php:151 fpw-post-instructions.php:154
+#: fpw-post-instructions.php:124 fpw-post-instructions.php:126
+#: fpw-post-instructions.php:129 fpw-post-instructions.php:160
+#: fpw-post-instructions.php:162 fpw-post-instructions.php:165
 msgid "checked"
 msgstr ""
 
-#: fpw-post-instructions.php:113 fpw-post-instructions.php:150
+#: fpw-post-instructions.php:125 fpw-post-instructions.php:161
 msgid ""
 "during uninstall procedure all plugin's information will be removed from the "
 "database"
 msgstr ""
 
-#: fpw-post-instructions.php:114 fpw-post-instructions.php:151
-#: fpw-post-instructions.php:402
+#: fpw-post-instructions.php:126 fpw-post-instructions.php:162
+#: fpw-post-instructions.php:412
 msgid "Add this plugin to the Admin Bar"
 msgstr ""
 
-#: fpw-post-instructions.php:115 fpw-post-instructions.php:152
+#: fpw-post-instructions.php:127 fpw-post-instructions.php:163
 msgid "the plugin's link to its settings page will be added to the Admin Bar"
 msgstr ""
 
-#: fpw-post-instructions.php:116 fpw-post-instructions.php:153
-#: fpw-post-instructions.php:409
+#: fpw-post-instructions.php:128 fpw-post-instructions.php:164
+#: fpw-post-instructions.php:419
 msgid "Activate visual editor for:"
 msgstr ""
 
-#: fpw-post-instructions.php:116 fpw-post-instructions.php:153
+#: fpw-post-instructions.php:128 fpw-post-instructions.php:164
 msgid "radio buttons for each post type"
 msgstr ""
 
-#: fpw-post-instructions.php:118 fpw-post-instructions.php:155
+#: fpw-post-instructions.php:130 fpw-post-instructions.php:166
 msgid "allows rich text editing for post type selected"
 msgstr ""
 
-#: fpw-post-instructions.php:118 fpw-post-instructions.php:155
+#: fpw-post-instructions.php:130 fpw-post-instructions.php:166
 msgid "version"
 msgstr ""
 
-#: fpw-post-instructions.php:119 fpw-post-instructions.php:156
+#: fpw-post-instructions.php:131 fpw-post-instructions.php:167
 msgid "not used in WordPress 3.3+ which allows more than one rich text editor"
 msgstr ""
 
 #: fpw-post-instructions.php:191
+msgid "Help for FPW Post Instructions"
+msgstr ""
+
+#: fpw-post-instructions.php:253
 msgid "FPW Plugins"
 msgstr ""
 
-#: fpw-post-instructions.php:238
+#: fpw-post-instructions.php:300
+msgid "Donate"
+msgstr ""
+
+#: fpw-post-instructions.php:306
 msgid "Settings"
 msgstr ""
 
-#: fpw-post-instructions.php:265
-msgid "FPW Post Instructions - Help"
-msgstr ""
-
-#: fpw-post-instructions.php:339
+#: fpw-post-instructions.php:351
 msgid "You did not send any credentials!"
 msgstr ""
 
-#: fpw-post-instructions.php:341
+#: fpw-post-instructions.php:353
 msgid "You did not send the right credentials!"
 msgstr ""
 
-#: fpw-post-instructions.php:382
+#: fpw-post-instructions.php:392
 msgid "Updated successfully."
 msgstr ""
 
-#: fpw-post-instructions.php:384
+#: fpw-post-instructions.php:394
 msgid "No changes detected. Nothing to update."
 msgstr ""
 
-#: fpw-post-instructions.php:418
+#: fpw-post-instructions.php:428
 msgid "To use this option you must enable rich text editing in your profile!"
 msgstr ""
 
-#: fpw-post-instructions.php:424 fpw-post-instructions.php:469
+#: fpw-post-instructions.php:434 fpw-post-instructions.php:479
 msgid "Update"
 msgstr ""
 
-#: fpw-post-instructions.php:432
+#: fpw-post-instructions.php:442
 msgid "Type"
 msgstr ""
 
-#: fpw-post-instructions.php:440
+#: fpw-post-instructions.php:450
 msgid "Enabled"
 msgstr ""
 
-#: fpw-post-instructions.php:441
+#: fpw-post-instructions.php:451
 msgid "Title"
 msgstr ""
 
-#: fpw-post-instructions.php:441
+#: fpw-post-instructions.php:451
 msgid "default"
 msgstr ""
 
-#: fpw-post-instructions.php:441 fpw-post-instructions.php:484
+#: fpw-post-instructions.php:451 fpw-post-instructions.php:495
 msgid "Special Instructions for Editors"
 msgstr ""
 
-#: fpw-post-instructions.php:443
+#: fpw-post-instructions.php:453
 msgid "Content"
 msgstr ""
 
-#: fpw-post-instructions.php:447
+#: fpw-post-instructions.php:457
 msgid "HTML allowed"
 msgstr ""
 
