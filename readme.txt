@@ -86,12 +86,10 @@ you have installed version 1.1.4, please upgrade to version 1.1.5 immediately!
 
 == Rich Text Editing ==
 
-**WordPress version < 3.3**
-
+=WordPress version < 3.3=
 Only one rich text editor can be used per settings page. This is
 because current editing mode switching code in WordPress does not handle
 multiple instances of the rich text editor.
 
-**WordPress version 3.3+**
-
+=WordPress version 3.3+=
 Multiple rich text editors allowed
