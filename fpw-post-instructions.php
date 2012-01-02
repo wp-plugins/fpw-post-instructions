@@ -6,7 +6,7 @@ Description: Adds metaboxes to admin editing screens for posts, pages, links,
 and custom post types with instructions for editors.
 
 Plugin URI: http://fw2s.com/2011/02/28/fpw-post-instructions-plugin/
-Version: 1.2.1
+Version: 1.2.2
 Author: Frank P. Walentynowicz
 Author URI: http://fw2s.com/
 
@@ -48,18 +48,20 @@ class fpwPostInstructions {
 		$this->wpVersion = $wp_version;
 
 		//	set plugin's version
-		$this->pluginVersion = '1.2.1';
+		$this->pluginVersion = '1.2.2';
 		
 		//	actions and filters
 		add_action( 'init', array( &$this, 'loadTextDomain' ), 1 );
-		add_action( 'admin_menu', array( &$this, 'addToSettingsMenu' ) );
-		add_action( 'after_plugin_row_fpw-post-instructions/fpw-post-instructions.php', array( &$this, 'afterPluginMeta' ), 10, 2 );
-		add_action( 'add_meta_boxes', array( &$this, 'addCustomBox' ) );
+		if ( is_admin() ) {
+			add_action( 'admin_menu', array( &$this, 'addToSettingsMenu' ) );
+			add_action( 'after_plugin_row_fpw-post-instructions/fpw-post-instructions.php', array( &$this, 'afterPluginMeta' ), 10, 2 );
+			add_action( 'add_meta_boxes', array( &$this, 'addCustomBox' ) );
 
-		add_filter( 'plugin_action_links_fpw-post-instructions/fpw-post-instructions.php', array( &$this, 'pluginLinks' ), 10, 2);
-		add_filter( 'plugin_row_meta', array( &$this, 'pluginMetaLinks'), 10, 2 );
+			add_filter( 'plugin_action_links_fpw-post-instructions/fpw-post-instructions.php', array( &$this, 'pluginLinks' ), 10, 2);
+			add_filter( 'plugin_row_meta', array( &$this, 'pluginMetaLinks'), 10, 2 );
 
-		register_activation_hook( __FILE__, array( &$this, 'pluginActivate' ) );
+			register_activation_hook( __FILE__, array( &$this, 'pluginActivate' ) );
+		}
 		
 		//	Read plugin's options
 		$this->pluginOptions = $this->getPluginOptions();
