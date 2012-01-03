@@ -4,7 +4,7 @@ Donate link: http://fw2s.com/payments-and-donations/
 Tags: post, page, type, custom, metabox, instructions
 Requires at least: 3.0
 Tested up to: 3.3
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 
 Meta boxes on admin editing screens for posts, pages, links, and custom post 
 types with instructions for editors.
@@ -27,6 +27,9 @@ are available - plain text (HTML codes allowed) and rich text editing.
 2. Meta box
 
 == Changelog ==
+
+= 1.2.3 =
+* Changed support links to reflect changes to FWSS site
 
 = 1.2.2 =
 * Adding actions and filters for back end only
