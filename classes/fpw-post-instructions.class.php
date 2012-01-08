@@ -86,36 +86,7 @@ class fpwPostInstructions {
 	//	Register styles, scripts, and localize javascript
 	public function enqueueScripts( $hook ) {
 		if ( 'settings_page_fpw-post-instructions' == $hook ) {
-			
-			$this->allowedVisual = user_can_richedit();
-
-			wp_register_script( 'fpw-fpi-script', $this->pluginUrl . '/js/fpw-fpi-script.js', array( 'jquery' ) );
-			wp_enqueue_script( 'fpw-fpi-script' );
-
-			wp_localize_script( 'fpw-fpi-script', 'fpw_fpi_text', array(
-				'fpw_fpi_help_link_text'	=> esc_html( __( 'Help for FPW Post Instructions', 'fpw-fpi' ) )
-			));
-
-			if ( '3.3' > $this->wpVersion ) {
-
-				/*	check if changes were submitted */
-				if ( ( $_POST[ 'fpw_post_instructions_submit' ] ) || ( $_POST[ 'fpw_post_instructions_submit_top' ] ) ) {
-					$visual_checked = ( 'yes' == $_POST[ 'visual' ] );
-				} else {
-					/*	get options array */
-					$opt = $this->getPluginOptions();
-					$visual_checked = $opt[ 'visual' ];
-				}
-		
-				if ( $visual_checked ) {
-					wp_enqueue_script( 'post' );
-					wp_enqueue_script( 'editor' );
-					add_thickbox();
-					wp_enqueue_script( 'media-upload' );
-					if ( $this->allowedVisual ) 
-						wp_tiny_mce();
-				}
-			}
+			include $this->pluginPath . '/code/enqueuescripts.php';			
 		}
 	}
 
@@ -357,9 +328,9 @@ class fpwPostInstructions {
 					echo ' ( ' . __( 'HTML allowed', 'fpw-fpi' ) . ' )';
 				echo '<br />';
 				if ( $this->allowedVisual && $opt[ 'visual' ] && ( $post_type_name == $opt[ 'visual-type' ] ) ) {
-					echo '<div id="poststuff" style="padding-bottom:4px">';
+					echo '<div id="poststuff">';
 					the_editor( $opt[ 'types' ][ $post_type_name ][ 'content' ], 'content', '', true );
-					echo '<br />&nbsp;</div>';
+					echo '</div>';
 				} else {
 					echo '<textarea rows="12" style="width: 100%;" name="' . $post_type_name . '-content">' . $opt[ 'types' ][ $post_type_name ][ 'content' ] . '</textarea>';
 				}

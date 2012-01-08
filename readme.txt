@@ -28,6 +28,10 @@ are available - plain text (HTML codes allowed) and rich text editing.
 
 == Changelog ==
 
+= 1.2.5 =
+* Fixed bug caused by unnecessary call to wp_tiny_mce function
+* More code optimization
+
 = 1.2.4 =
 * Minor bug fixes
 * Code optimized ( using less resources )
