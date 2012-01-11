@@ -2,15 +2,109 @@
 # This file is distributed under the same license as the FPW Post Instructions package.
 msgid ""
 msgstr ""
-"Project-Id-Version: FPW Post Instructions 1.2.5\n"
+"Project-Id-Version: FPW Post Instructions 1.2.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/fpw-post-instructions\n"
-"POT-Creation-Date: 2012-01-08 17:23:48+00:00\n"
+"POT-Creation-Date: 2012-01-11 18:10:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2012-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: code/enqueuescripts.php:8
+msgid "Help for FPW Post Instructions"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.2.6)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: classes/fpw-post-instructions.class.php:60
+#: classes/fpw-post-instructions.class.php:61
+#: classes/fpw-post-instructions.class.php:130
+#: classes/fpw-post-instructions.class.php:258
+msgid "FPW Post Instructions"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:124
+msgid "FPW Plugins"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:171
+msgid "Donate"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:177
+msgid "Settings"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:222
+msgid "You did not send any credentials!"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:224
+msgid "You did not send the right credentials!"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:263
+msgid "Updated successfully."
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:265
+msgid "No changes detected. Nothing to update."
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:277 help/help33.php:27
+#: help/help.php:17
+msgid "Remove plugin's data from database on uninstall"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:283 help/help33.php:29
+#: help/help.php:19
+msgid "Add this plugin to the Admin Bar"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:290 help/help33.php:31
+#: help/help.php:21
+msgid "Activate visual editor for:"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:299
+msgid "To use this option you must enable rich text editing in your profile!"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:305
+#: classes/fpw-post-instructions.class.php:350
+msgid "Update"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:313
+msgid "Type"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:321
+msgid "Enabled"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:322
+msgid "Title"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:322
+msgid "default"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:322
+#: classes/fpw-post-instructions.class.php:366
+msgid "Special Instructions for Editors"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:324
+msgid "Content"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:328
+msgid "HTML allowed"
+msgstr ""
 
 #: help/help33.php:4 help/help.php:25
 msgid "More information"
@@ -64,11 +158,6 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: help/help33.php:27 help/help.php:17
-#: classes/fpw-post-instructions.class.php:277
-msgid "Remove plugin's data from database on uninstall"
-msgstr ""
-
 #: help/help33.php:27 help/help33.php:29 help/help33.php:32 help/help.php:17
 #: help/help.php:19 help/help.php:22
 msgid "checked"
@@ -80,18 +169,8 @@ msgid ""
 "database"
 msgstr ""
 
-#: help/help33.php:29 help/help.php:19
-#: classes/fpw-post-instructions.class.php:283
-msgid "Add this plugin to the Admin Bar"
-msgstr ""
-
 #: help/help33.php:30 help/help.php:20
 msgid "the plugin's link to its settings page will be added to the Admin Bar"
-msgstr ""
-
-#: help/help33.php:31 help/help.php:21
-#: classes/fpw-post-instructions.class.php:290
-msgid "Activate visual editor for:"
 msgstr ""
 
 #: help/help33.php:31 help/help.php:21
@@ -108,85 +187,6 @@ msgstr ""
 
 #: help/help33.php:34 help/help.php:24
 msgid "not used in WordPress 3.3+ which allows more than one rich text editor"
-msgstr ""
-
-#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.2.5)  #-#-#-#-#
-#. Plugin Name of the plugin/theme
-#: classes/fpw-post-instructions.class.php:60
-#: classes/fpw-post-instructions.class.php:61
-#: classes/fpw-post-instructions.class.php:130
-#: classes/fpw-post-instructions.class.php:258
-msgid "FPW Post Instructions"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:124
-msgid "FPW Plugins"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:171
-msgid "Donate"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:177
-msgid "Settings"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:222
-msgid "You did not send any credentials!"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:224
-msgid "You did not send the right credentials!"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:263
-msgid "Updated successfully."
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:265
-msgid "No changes detected. Nothing to update."
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:299
-msgid "To use this option you must enable rich text editing in your profile!"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:305
-#: classes/fpw-post-instructions.class.php:350
-msgid "Update"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:313
-msgid "Type"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:321
-msgid "Enabled"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:322
-msgid "Title"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:322
-msgid "default"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:322
-#: classes/fpw-post-instructions.class.php:366
-msgid "Special Instructions for Editors"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:324
-msgid "Content"
-msgstr ""
-
-#: classes/fpw-post-instructions.class.php:328
-msgid "HTML allowed"
-msgstr ""
-
-#: code/enqueuescripts.php:8
-msgid "Help for FPW Post Instructions"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
