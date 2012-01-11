@@ -199,21 +199,21 @@ class fpwPostInstructions {
 			$my_types[ $post_type_name ] = $my_type;
 
 		/*	get options array */
-		$opt = $this->getPluginOptions();
+		$this->pluginOptions = $this->getPluginOptions();
 	
-		$old_visual = $opt[ 'visual' ];
-		$old_visual_type = $opt[ 'visual-type' ];
+		$old_visual = $this->pluginOptions[ 'visual' ];
+		$old_visual_type = $this->pluginOptions[ 'visual-type' ];
 
 		foreach ( $post_type_names as $post_type_name ) {
-			if ( !is_array( $opt[ 'types' ][ $post_type_name ] ) )
-				$opt[ 'types' ][ $post_type_name ] = $my_type;
+			if ( !is_array( $this->pluginOptions[ 'types' ][ $post_type_name ] ) )
+				$this->pluginOptions[ 'types' ][ $post_type_name ] = $my_type;
 		}
 
 		/*	remove deleted custom post types arrays from options */
-		$opt_keys = array_keys( $opt[ 'types' ] );
+		$opt_keys = array_keys( $this->pluginOptions[ 'types' ] );
 		foreach ( $opt_keys as $opt_key ) {
 			if ( !in_array( $opt_key, $post_type_names ) )
-				unset( $opt[ 'types' ][ $opt_key ] ); 
+				unset( $this->pluginOptions[ 'types' ][ $opt_key ] ); 
 			}
 
 		/*	check if changes were submitted */
@@ -224,29 +224,29 @@ class fpwPostInstructions {
 				die( '<br />&nbsp;<br /><p style="padding-left: 20px; color: red;"><strong>' . __( 'You did not send the right credentials!', 'fpw-fpi' ) . '</strong></p>' );
 
 			foreach ( $post_type_names as $post_type_name ) {
-				$opt[ 'types' ][ $post_type_name ][ 'enabled' ] = ( 'yes' == $_POST[ $post_type_name . '-enabled' ] );
-				$opt[ 'types' ][ $post_type_name ][ 'title' ] = stripslashes( $_POST[ $post_type_name . '-title' ] );
+				$this->pluginOptions[ 'types' ][ $post_type_name ][ 'enabled' ] = ( 'yes' == $_POST[ $post_type_name . '-enabled' ] );
+				$this->pluginOptions[ 'types' ][ $post_type_name ][ 'title' ] = stripslashes( $_POST[ $post_type_name . '-title' ] );
 			
 				if ( '3.3' > $this->wpVersion ) {
-					$opt[ 'visual' ] = ( 'yes' == $_POST[ 'visual' ] );
-					$opt[ 'visual-type' ] = $_POST[ 'fpw-radio-visual' ];
+					$this->pluginOptions[ 'visual' ] = ( 'yes' == $_POST[ 'visual' ] );
+					$this->pluginOptions[ 'visual-type' ] = $_POST[ 'fpw-radio-visual' ];
 
 					if ( $this->allowedVisual && $old_visual && ( $post_type_name == $old_visual_type ) ) {
-						$opt[ 'types' ][ $post_type_name ][ 'content' ] = stripslashes( $_POST[ 'content' ] );
+						$this->pluginOptions[ 'types' ][ $post_type_name ][ 'content' ] = stripslashes( $_POST[ 'content' ] );
 					} else {
-						$opt[ 'types' ][ $post_type_name ][ 'content' ] = stripslashes( $_POST[ $post_type_name . '-content' ] );
+						$this->pluginOptions[ 'types' ][ $post_type_name ][ 'content' ] = stripslashes( $_POST[ $post_type_name . '-content' ] );
 					}
 				} else {
-					$opt[ 'types' ][ $post_type_name ][ 'content' ] = stripslashes( $_POST[ $post_type_name . '-content' ] );
+					$this->pluginOptions[ 'types' ][ $post_type_name ][ 'content' ] = stripslashes( $_POST[ $post_type_name . '-content' ] );
 				}
 			}
 		
-			$opt[ 'clean' ] = ( 'yes' == $_POST[ 'cleanup' ] );
+			$this->pluginOptions[ 'clean' ] = ( 'yes' == $_POST[ 'cleanup' ] );
 
 			if ( '3.1' <= $this->wpVersion )
-				$opt[ 'abar' ] = ( 'yes' == $_POST[ 'abar' ] );
+				$this->pluginOptions[ 'abar' ] = ( 'yes' == $_POST[ 'abar' ] );
 		
-			$update_ok = update_option( 'fpw_post_instructions_options', $opt );
+			$update_ok = update_option( 'fpw_post_instructions_options', $this->pluginOptions );
 		
 			//	if cleanup requested make uninstall.php otherwise make uninstall.txt
 			if ( $update_ok ) 
@@ -273,29 +273,29 @@ class fpwPostInstructions {
 
 		//	cleanup checkbox
 		echo '<p><input type="checkbox" name="cleanup" value="yes"';
-		if ( $opt[ 'clean' ] ) echo ' checked';
+		if ( $this->pluginOptions[ 'clean' ] ) echo ' checked';
 		echo " /> " . __( "Remove plugin's data from database on uninstall", 'fpw-fpi' ) . '<br />';
 
 		//	admin bar checkbox
 		if ( '3.1' <= $this->wpVersion ) {
 			echo '<input type="checkbox" name="abar" value="yes"';
-			if ( $opt[ 'abar' ] ) echo ' checked';
+			if ( $this->pluginOptions[ 'abar' ] ) echo ' checked';
 			echo ' /> ' . __( 'Add this plugin to the Admin Bar', 'fpw-fpi' ) . '<br />';
 		}
 	
 		//	visual checkbox and radio selectors
 		if ( '3.3' > $this->wpVersion ) {
 			echo '<input type="checkbox" name="visual" value="yes"';
-			if ( $opt[ 'visual' ] ) echo ' checked';
+			if ( $this->pluginOptions[ 'visual' ] ) echo ' checked';
 			echo ' /> ' . __( 'Activate visual editor for:', 'fpw-fpi' ) . '&nbsp;&nbsp| ';
 
 			foreach ( $post_type_names as $post_type_name ) {
 				echo '<strong>' . $post_type_name . '</strong> <input type="radio" name="fpw-radio-visual" value="' . $post_type_name . '"';
-				if ( $post_type_name == $opt[ 'visual-type' ] ) echo ' checked'; 
+				if ( $post_type_name == $this->pluginOptions[ 'visual-type' ] ) echo ' checked'; 
 				echo ' /> | ';
 			}
 	
-			if ( !$this->allowedVisual && $opt[ 'visual' ] ) 
+			if ( !$this->allowedVisual && $this->pluginOptions[ 'visual' ] ) 
 				echo '&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;"><strong>**** ' . __( 'To use this option you must enable rich text editing in your profile!', 'fpw-fpi' ) . ' ****</strong></span>';
 			echo '<br />';
 		}
@@ -316,28 +316,28 @@ class fpwPostInstructions {
 			echo '<tbody';
 			echo '<tr>';
 			echo '<td><input type="checkbox" name="' . $post_type_name . '-enabled" value="yes"';
-			if ( $opt[ 'types' ][ $post_type_name ][ 'enabled' ] ) 
+			if ( $this->pluginOptions[ 'types' ][ $post_type_name ][ 'enabled' ] ) 
 				echo ' checked';
 			echo ' /> ' . __( 'Enabled', 'fpw-fpi' ) . '<br /><br />';
 			echo '<strong>' . __( 'Title', 'fpw-fpi' ) . '</strong> ( ' . __( 'default', 'fpw-fpi' ) . ': <strong>' . __( 'Special Instructions for Editors', 'fpw-fpi' ) . '</strong> )<br />';
-			echo '<input type="text" name="' . $post_type_name . '-title" value="' . $opt[ 'types' ][ $post_type_name ][ 'title' ] . '" maxlenght="60" size="60" /><br /><br />';
+			echo '<input type="text" name="' . $post_type_name . '-title" value="' . $this->pluginOptions[ 'types' ][ $post_type_name ][ 'title' ] . '" maxlenght="60" size="60" /><br /><br />';
 			echo '<strong>' . __( 'Content', 'fpw-fpi' ) . '</strong>';
 
 			if ( '3.3' > $this->wpVersion ) { 
-				if ( !$this->allowedVisual || !$opt[ 'visual' ] || ( $post_type_name <> $opt[ 'visual-type' ] ) ) 
+				if ( !$this->allowedVisual || !$this->pluginOptions[ 'visual' ] || ( $post_type_name <> $this->pluginOptions[ 'visual-type' ] ) ) 
 					echo ' ( ' . __( 'HTML allowed', 'fpw-fpi' ) . ' )';
 				echo '<br />';
-				if ( $this->allowedVisual && $opt[ 'visual' ] && ( $post_type_name == $opt[ 'visual-type' ] ) ) {
+				if ( $this->allowedVisual && $this->pluginOptions[ 'visual' ] && ( $post_type_name == $this->pluginOptions[ 'visual-type' ] ) ) {
 					echo '<div id="poststuff">';
-					the_editor( $opt[ 'types' ][ $post_type_name ][ 'content' ], 'content', '', true );
+					the_editor( $this->pluginOptions[ 'types' ][ $post_type_name ][ 'content' ], 'content', '', true );
 					echo '</div>';
 				} else {
-					echo '<textarea rows="12" style="width: 100%;" name="' . $post_type_name . '-content">' . $opt[ 'types' ][ $post_type_name ][ 'content' ] . '</textarea>';
+					echo '<textarea rows="12" style="width: 100%;" name="' . $post_type_name . '-content">' . $this->pluginOptions[ 'types' ][ $post_type_name ][ 'content' ] . '</textarea>';
 				}
 			} else {
 				$eargs = array( 'textarea_name' => $post_type_name . '-content' );
 				echo '<div style="padding-bottom: 5px;"';
-				wp_editor( $opt[ 'types' ][ $post_type_name ][ 'content' ], $post_type_name . '-editor', $eargs );
+				wp_editor( $this->pluginOptions[ 'types' ][ $post_type_name ][ 'content' ], $post_type_name . '-editor', $eargs );
 				echo '</div>';
 			}
 			echo '</td>';
@@ -357,9 +357,9 @@ class fpwPostInstructions {
 
 	//	add meta box to post editing screen
 	public function addCustomBox() {
-		$opt = $this->getPluginOptions();
-		if ( is_array( $opt ) )
-			foreach ( $opt[ 'types' ] as $key => $value ) {
+		$this->pluginOptions = $this->getPluginOptions();
+		if ( is_array( $this->pluginOptions ) )
+			foreach ( $this->pluginOptions[ 'types' ] as $key => $value ) {
 				if ( $value[ 'enabled' ] ) {
 					$title = $value[ 'title' ];
 					if ( "" == $title )

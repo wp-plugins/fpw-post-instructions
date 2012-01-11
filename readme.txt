@@ -28,6 +28,9 @@ are available - plain text (HTML codes allowed) and rich text editing.
 
 == Changelog ==
 
+= 1.2.6 =
+* Fixed bug in uninstall procedure
+
 = 1.2.5 =
 * Fixed bug caused by unnecessary call to wp_tiny_mce function
 * More code optimization
