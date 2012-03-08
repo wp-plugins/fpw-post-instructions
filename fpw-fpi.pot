@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the FPW Post Instructions package.
 msgid ""
 msgstr ""
-"Project-Id-Version: FPW Post Instructions 1.2.6\n"
+"Project-Id-Version: FPW Post Instructions 1.2.7\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/fpw-post-instructions\n"
-"POT-Creation-Date: 2012-01-11 18:10:17+00:00\n"
+"POT-Creation-Date: 2012-03-08 16:26:59+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,11 +12,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: code/enqueuescripts.php:8
-msgid "Help for FPW Post Instructions"
-msgstr ""
-
-#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.2.6)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (FPW Post Instructions 1.2.7)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: classes/fpw-post-instructions.class.php:60
 #: classes/fpw-post-instructions.class.php:61
@@ -53,18 +49,18 @@ msgstr ""
 msgid "No changes detected. Nothing to update."
 msgstr ""
 
-#: classes/fpw-post-instructions.class.php:277 help/help33.php:27
-#: help/help.php:17
+#: classes/fpw-post-instructions.class.php:277 help/help.php:17
+#: help/help33.php:27
 msgid "Remove plugin's data from database on uninstall"
 msgstr ""
 
-#: classes/fpw-post-instructions.class.php:283 help/help33.php:29
-#: help/help.php:19
+#: classes/fpw-post-instructions.class.php:283 help/help.php:19
+#: help/help33.php:29
 msgid "Add this plugin to the Admin Bar"
 msgstr ""
 
-#: classes/fpw-post-instructions.class.php:290 help/help33.php:31
-#: help/help.php:21
+#: classes/fpw-post-instructions.class.php:290 help/help.php:21
+#: help/help33.php:31
 msgid "Activate visual editor for:"
 msgstr ""
 
@@ -72,70 +68,71 @@ msgstr ""
 msgid "To use this option you must enable rich text editing in your profile!"
 msgstr ""
 
-#: classes/fpw-post-instructions.class.php:305
-#: classes/fpw-post-instructions.class.php:350
+#: classes/fpw-post-instructions.class.php:306
+#: classes/fpw-post-instructions.class.php:352
 msgid "Update"
 msgstr ""
 
-#: classes/fpw-post-instructions.class.php:313
+#: classes/fpw-post-instructions.class.php:306
+#: classes/fpw-post-instructions.class.php:352
+msgid "writes all modifications to the database"
+msgstr ""
+
+#: classes/fpw-post-instructions.class.php:314
 msgid "Type"
 msgstr ""
 
-#: classes/fpw-post-instructions.class.php:321
+#: classes/fpw-post-instructions.class.php:322
 msgid "Enabled"
 msgstr ""
 
-#: classes/fpw-post-instructions.class.php:322
+#: classes/fpw-post-instructions.class.php:323
 msgid "Title"
 msgstr ""
 
-#: classes/fpw-post-instructions.class.php:322
+#: classes/fpw-post-instructions.class.php:323
 msgid "default"
 msgstr ""
 
-#: classes/fpw-post-instructions.class.php:322
-#: classes/fpw-post-instructions.class.php:366
+#: classes/fpw-post-instructions.class.php:323
+#: classes/fpw-post-instructions.class.php:368
 msgid "Special Instructions for Editors"
 msgstr ""
 
-#: classes/fpw-post-instructions.class.php:324
+#: classes/fpw-post-instructions.class.php:325
 msgid "Content"
 msgstr ""
 
-#: classes/fpw-post-instructions.class.php:328
+#: classes/fpw-post-instructions.class.php:329
 msgid "HTML allowed"
 msgstr ""
 
-#: help/help33.php:4 help/help.php:25
-msgid "More information"
+#: code/enqueuescripts.php:8
+msgid "Help for FPW Post Instructions"
 msgstr ""
 
-#: help/help33.php:5 help/help.php:27
-msgid "Plugin's site"
-msgstr ""
-
-#: help/help33.php:6 help/help.php:28
-msgid "Support"
-msgstr ""
-
-#: help/help33.php:12 help/help33.php:21 help/help.php:5
+#: help/help.php:5 help/help33.php:12 help/help33.php:21
 msgid "Introduction"
 msgstr ""
 
-#: help/help33.php:14 help/help.php:11
+#: help/help.php:6 help/help33.php:26 help/help33.php:37
+msgid "Options"
+msgstr ""
+
+#: help/help.php:11 help/help33.php:14
 msgid ""
 "New features in WordPress 3.0+ as custom post types and post formats "
 "introduced some challenges to webmasters of corporate websites with many "
 "users holding post publishing / editing privileges."
 msgstr ""
 
-#: help/help33.php:15 help/help.php:12
+#: help/help.php:12 help/help33.php:15
 msgid ""
 "Especially post formats which use the standard post editing screens but may "
 "have certain rules imposed by the implementation."
 msgstr ""
 
-#: help/help33.php:16 help/help.php:13
+#: help/help.php:13 help/help33.php:16
 msgid ""
 "Webmasters could try the following options: make a course / training for "
 "editors, distribute instructions for editors in a form of printed material, "
@@ -146,7 +143,7 @@ msgid ""
 "people tend to avoid reading documentation."
 msgstr ""
 
-#: help/help33.php:17 help/help.php:15
+#: help/help.php:15 help/help33.php:17
 msgid ""
 "This plugin adds a metabox to post editing screens with special instructions "
 "for editors. You can make it as eye-catching as you want ( html in the "
@@ -154,39 +151,47 @@ msgid ""
 "be forgotten or misplaced."
 msgstr ""
 
-#: help/help33.php:26 help/help33.php:37 help/help.php:6
-msgid "Options"
-msgstr ""
-
-#: help/help33.php:27 help/help33.php:29 help/help33.php:32 help/help.php:17
-#: help/help.php:19 help/help.php:22
+#: help/help.php:17 help/help.php:19 help/help.php:22 help/help33.php:27
+#: help/help33.php:29 help/help33.php:32
 msgid "checked"
 msgstr ""
 
-#: help/help33.php:28 help/help.php:18
+#: help/help.php:18 help/help33.php:28
 msgid ""
 "during uninstall procedure all plugin's information will be removed from the "
 "database"
 msgstr ""
 
-#: help/help33.php:30 help/help.php:20
+#: help/help.php:20 help/help33.php:30
 msgid "the plugin's link to its settings page will be added to the Admin Bar"
 msgstr ""
 
-#: help/help33.php:31 help/help.php:21
+#: help/help.php:21 help/help33.php:31
 msgid "radio buttons for each post type"
 msgstr ""
 
-#: help/help33.php:33 help/help.php:23
+#: help/help.php:23 help/help33.php:33
 msgid "allows rich text editing for post type selected"
 msgstr ""
 
-#: help/help33.php:33 help/help.php:23
+#: help/help.php:23 help/help33.php:33
 msgid "version"
 msgstr ""
 
-#: help/help33.php:34 help/help.php:24
+#: help/help.php:24 help/help33.php:34
 msgid "not used in WordPress 3.3+ which allows more than one rich text editor"
+msgstr ""
+
+#: help/help.php:25 help/help33.php:4
+msgid "More information"
+msgstr ""
+
+#: help/help.php:27 help/help33.php:5
+msgid "Plugin's site"
+msgstr ""
+
+#: help/help.php:28 help/help33.php:6
+msgid "Support"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
