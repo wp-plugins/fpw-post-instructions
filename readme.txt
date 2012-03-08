@@ -14,7 +14,7 @@ types with instructions for editors.
 This plugin makes meta boxes on admin editing screens for posts, pages, links, 
 and custom post types with instructions for editors. The content of these meta 
 boxes can be entered/modified on plugin's settings page. Two methods of editing
-are available - plain text (HTML codes allowed) and rich text editing.
+are available - plain text (HTML codes allowed) and visual text editing.
 
 == Installation ==
 
