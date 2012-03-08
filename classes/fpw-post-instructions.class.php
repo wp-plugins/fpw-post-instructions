@@ -51,7 +51,7 @@ class fpwPostInstructions {
 	//	Register plugin's textdomain 
 	//	for translations
 	public function loadTextDomain() {
-		load_plugin_textdomain( 'fpw-fpi', false, $this->pluginPath . '/languages' );
+		load_plugin_textdomain( 'fpw-fpi', false, 'fpw-post-instructions/languages/' );
 	}	
 
 	//	Register plugin's menu in Settings
@@ -302,7 +302,8 @@ class fpwPostInstructions {
 		echo '</p>';
 	
 		//	top submit button
-		echo '<div class="inputbutton"><input class="button-primary" type="submit" name="fpw_post_instructions_submit_top" value="' . __( 'Update', 'fpw-fpi' ) . '" /></div>';
+		echo	'<div class="inputbutton"><input class="button-primary" type="submit" name="fpw_post_instructions_submit_top" value="' . 
+				__( 'Update', 'fpw-fpi' ) . '" title="' . __( 'writes all modifications to the database', 'fpw-fpi' ) . '" /></div>';
 
 		//	for each post type
 		foreach ( $post_type_names as $post_type_name ) {
@@ -347,7 +348,8 @@ class fpwPostInstructions {
 		}
 
 		//	BOTTOM submit button
-		echo '<br /><div class="inputbutton"><input class="button-primary" type="submit" name="fpw_post_instructions_submit" value="' . __( 'Update', 'fpw-fpi' ) . '" /></div>';
+		echo 	'<br /><div class="inputbutton"><input class="button-primary" type="submit" name="fpw_post_instructions_submit" value="' . 
+				__( 'Update', 'fpw-fpi' ) . '" title="' . __( 'writes all modifications to the database', 'fpw-fpi' ) . '" /></div>';
 		
 		//	end of form 
 		echo '</form>';

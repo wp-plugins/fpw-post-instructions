@@ -28,6 +28,10 @@ are available - plain text (HTML codes allowed) and rich text editing.
 
 == Changelog ==
 
+= 1.2.7 =
+* Added missing translation strings
+* Included Polish translation
+
 = 1.2.6 =
 * Fixed bug in uninstall procedure
 
