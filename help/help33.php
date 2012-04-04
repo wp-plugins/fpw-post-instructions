@@ -2,7 +2,7 @@
 		global	$current_screen;
 
 		$sidebar =	'<p style="font-size: larger">' . __( 'More information', 'fpw-fpi' ) . '</p>' . 
-					'<blockquote><a href="http://fw2s.com/2011/02/28/fpw-post-instructions-plugin/" target="_blank">' . __( 'Plugin\'s site', 'fpw-fpi' ) . '</a></blockquote>' . 
+					'<blockquote><a href="http://fw2s.com/fpw-post-instructions-plugin/" target="_blank">' . __( 'Plugin\'s site', 'fpw-fpi' ) . '</a></blockquote>' . 
 					'<p style="font-size: larger">' . __( 'Support', 'fpw-fpi' ) . '</p>' . 
 					'<blockquote><a href="http://wordpress.org/tags/fpw-post-instructions?forum_id=10" target="_blank">WordPress</a><br />' . 
 					'<a href="http://fw2s.com/support/fpw-post-instructions-support/" target="_blank">FWSS</a></blockquote>'; 

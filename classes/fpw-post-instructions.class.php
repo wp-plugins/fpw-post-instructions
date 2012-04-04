@@ -40,7 +40,7 @@ class fpwPostInstructions {
 		$this->pluginOptions = $this->getPluginOptions();
 
 		if ( '3.1' <= $this->wpVersion ) {
-			if ( ( $_POST[ 'fpw_post_instructions_submit' ] ) || ( $_POST[ 'fpw_post_instructions_submit_top' ] ) ) 
+			if ( isset( $_POST[ 'abar' ] ) ) 
 				$this->pluginOptions[ 'abar' ] = ( $_POST[ 'abar' ] == 'yes' ); 
 			if ( $this->pluginOptions[ 'abar' ] ) 
 				add_action( 'admin_bar_menu', array( &$this, 'pluginToAdminBar' ), 1020 );

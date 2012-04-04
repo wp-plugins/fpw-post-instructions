@@ -5,8 +5,8 @@ Plugin Name: FPW Post Instructions
 Description: Adds metaboxes to admin editing screens for posts, pages, links,
 and custom post types with instructions for editors.
 
-Plugin URI: http://fw2s.com/2011/02/28/fpw-post-instructions-plugin/
-Version: 1.2.7
+Plugin URI: http://fw2s.com/fpw-post-instructions-plugin/
+Version: 1.2.8
 Author: Frank P. Walentynowicz
 Author URI: http://fw2s.com/
 
@@ -27,6 +27,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 if ( is_admin() ) {
 	require_once dirname(__FILE__) . '/classes/fpw-post-instructions.class.php';
-	new fpwPostInstructions( dirname(__FILE__), '1.2.7' );
+	new fpwPostInstructions( dirname(__FILE__), '1.2.8' );
 }
 ?>

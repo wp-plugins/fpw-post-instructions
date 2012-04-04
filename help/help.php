@@ -23,7 +23,7 @@
 						__( 'allows rich text editing for post type selected', 'fpw-fpi' ) . ' ( WordPress ' . __( 'version', 'fpw-fpi' ) . 
 						' < 3.3, '. __( 'not used in WordPress 3.3+ which allows more than one rich text editor', 'fpw-fpi' ) . ' )</p><hr /><p><strong>' . 
 						__( 'More information', 'fpw-fpi' ) . '</strong><br />' . 
-						'&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://fw2s.com/2011/02/28/fpw-post-instructions-plugin/" target="_blank"> ' . 
+						'&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://fw2s.com/fpw-post-instructions-plugin/" target="_blank"> ' . 
 						__( 'Plugin\'s site', 'fpw-fpi' ) . '</a><br /><br /><strong>' . 
 						__( 'Support', 'fpw-fpi' ) . '</strong><br />' . 
 						'&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://wordpress.org/tags/fpw-post-instructions?forum_id=10" target="_blank">WordPress</a><br />' . 

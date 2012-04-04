@@ -28,6 +28,10 @@ are available - plain text (HTML codes allowed) and visual text editing.
 
 == Changelog ==
 
+= 1.2.8 =
+* Fixed issues with PHP notices about uninitialized $_POST index
+* Fixed external links to plugin's website ( changed permalinks at fw2s.com )
+
 = 1.2.7 =
 * Added missing translation strings
 * Included Polish translation
