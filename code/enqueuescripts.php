@@ -11,8 +11,8 @@
 			if ( '3.3' > $this->wpVersion ) {
 
 				/*	check if changes were submitted */
-				if ( ( $_POST[ 'fpw_post_instructions_submit' ] ) || ( $_POST[ 'fpw_post_instructions_submit_top' ] ) ) {
-					$visual_checked = ( 'yes' == $_POST[ 'visual' ] );
+				if ( isset( $_POST[ 'fpw_post_instructions_submit' ] ) || isset( $_POST[ 'fpw_post_instructions_submit_top' ] ) ) {
+					$visual_checked = ( isset( $_POST[ 'visual' ] ) ) ? true : false;
 				} else {
 					/*	get options array */
 					$opt = $this->getPluginOptions();

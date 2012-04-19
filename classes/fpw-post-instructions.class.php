@@ -36,25 +36,25 @@ class fpwPostInstructions {
 
 		register_activation_hook( __FILE__, array( &$this, 'pluginActivate' ) );
 		
-		//	Read plugin's options
+		//	read plugin's options
 		$this->pluginOptions = $this->getPluginOptions();
 
 		if ( '3.1' <= $this->wpVersion ) {
-			if ( isset( $_POST[ 'abar' ] ) ) 
-				$this->pluginOptions[ 'abar' ] = ( $_POST[ 'abar' ] == 'yes' ); 
+			if ( isset( $_POST[ 'fpw_post_instructions_submit' ] ) || isset( $_POST[ 'fpw_post_instructions_submit_top' ] ) )  
+				$this->pluginOptions[ 'abar' ] = ( isset( $_POST[ 'abar' ] ) ) ? true : false; 
 			if ( $this->pluginOptions[ 'abar' ] ) 
 				add_action( 'admin_bar_menu', array( &$this, 'pluginToAdminBar' ), 1020 );
 		}
 			
 	}
 
-	//	Register plugin's textdomain 
+	//	register plugin's textdomain 
 	//	for translations
 	public function loadTextDomain() {
 		load_plugin_textdomain( 'fpw-fpi', false, 'fpw-post-instructions/languages/' );
 	}	
 
-	//	Register plugin's menu in Settings
+	//	register plugin's menu in Settings
 	public function addToSettingsMenu() {
 			
 		$pageTitle = __('FPW Post Instructions', 'fpw-fpi') . ' (' . $this->pluginVersion . ')';
@@ -63,19 +63,20 @@ class fpwPostInstructions {
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueScripts' ) );
 	
 		if ( '3.3' <= $this->wpVersion ) {
+			add_action( 'admin_enqueue_scripts', array( &$this, 'enqueuePointerScripts' ) );
 			add_action( 'load-' . $this->pluginPage, array( &$this, 'help33' ) );
 		} else {
 			add_filter( 'contextual_help', array( &$this, 'help' ), 10, 3 );
 		}
 	}
 
-	//	Add plugin's contextual help ( 3.3+ )
+	//	add plugin's contextual help ( 3.3+ )
 	public function help33() {
 		if ( '3.3' <= $this->wpVersion ) 
 			include $this->pluginPath . '/help/help33.php';
 	}
 
-	//	Add plugin's contextual help ( < 3.3 )
+	//	add plugin's contextual help ( < 3.3 )
 	public function help( $contextual_help, $screen_id, $screen ) {
 		if ( $screen_id == $this->pluginPage ) {
 			include $this->pluginPath . '/help/help.php';
@@ -83,14 +84,54 @@ class fpwPostInstructions {
 		return $contextual_help; 
 	}
 
-	//	Register styles, scripts, and localize javascript
+	//	register styles, scripts, and localize javascript
 	public function enqueueScripts( $hook ) {
 		if ( 'settings_page_fpw-post-instructions' == $hook ) {
 			include $this->pluginPath . '/code/enqueuescripts.php';			
 		}
 	}
 
-	//	Get plugin's options ( add if does not exists )
+	//	enqueue pointer scripts
+	public function enqueuePointerScripts( $hook ) {
+		$proceed = false;
+		$dismissed = explode( ',', (string) get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
+		if ( !in_array( 'fpwfpi129', $dismissed ) && apply_filters( 'show_wp_pointer_admin_bar', TRUE ) ) {
+			$proceed = true;
+			add_action( 'admin_print_footer_scripts', array( &$this, 'custom_print_footer_scripts' ) );
+		}
+		if ( $proceed ) {
+    		wp_enqueue_style('wp-pointer');
+    		wp_enqueue_script('wp-pointer');
+    		wp_enqueue_script('utils');
+		}
+	}
+
+	// 	handle pointer
+	public function custom_print_footer_scripts() {
+    	$pointerContent  = '<h3>' . esc_js( __( "What's new in this version?", 'fpw-fct' ) ) . '</h3>';
+		$pointerContent .= '<li style="margin-left:25px;margin-top:20px;list-style:square">' . __( 'Added support for pointers', 'fpw-fct' ) . ' (WP 3.3+)</li>';
+		$pointerContent .= '<li style="margin-left:25px;list-style:square">' . __( 'Minor bugs fixes', 'fpw-fct' ) . '</li>';
+    	?>
+    	<script type="text/javascript">
+    	// <![CDATA[
+    		jQuery(document).ready( function($) {
+        		$('#fpi-settings-title').pointer({
+        			content: '<?php echo $pointerContent; ?>',
+        			position: 'top',
+            		close: function() {
+						jQuery.post( ajaxurl, {
+							pointer: 'fpwfpi129',
+							action: 'dismiss-wp-pointer'
+						});
+            		}
+				}).pointer('open');
+			});
+    	// ]]>
+    	</script>
+    	<?php
+	}
+
+	//	get plugin's options ( add if does not exists )
 	private function getPluginOptions() {
 	
 		$opt = get_option( 'fpw_post_instructions_options' );
@@ -114,7 +155,7 @@ class fpwPostInstructions {
 		return $opt;
 	}
 	
-	//	Add plugin to admin bar ( WordPress 3.1+ )	
+	//	add plugin to admin bar ( WordPress 3.1+ )	
 	public function pluginToAdminBar() {
 		if ( current_user_can( 'manage_options' ) ) {
 			global $wp_admin_bar;
@@ -133,7 +174,7 @@ class fpwPostInstructions {
 			if ( '3.3' <= $this->wpVersion ) {
 				$addmain = ( is_array( $wp_admin_bar->get_node( 'fpw_plugins' ) ) ) ? false : true;
 			} else {
-				$addmain = ( is_array( $wp_admin_bar->menu->fpw_plugins ) ) ? false : true;
+				$addmain = ( isset( $wp_admin_bar->menu->fpw_plugins ) ) ? false : true;
 			} 
 
 			if ( $addmain )
@@ -142,7 +183,7 @@ class fpwPostInstructions {
 		}
 	}
 	
-	//	Uninstall file maintenance
+	//	uninstall file maintenance
 	public function pluginActivate() {
 		//	if cleanup requested make uninstall.php otherwise make uninstall.txt
 		if ( $this->pluginOptions[ 'clean' ] ) {
@@ -154,7 +195,7 @@ class fpwPostInstructions {
 		}
 	}	
 	
-	//	Add update information after plugin meta
+	//	add update information after plugin meta
 	public function afterPluginMeta( $file, $plugin_data ) {
 		$current = get_site_transient( 'update_plugins' );
 		if ( !isset( $current -> response[ $file ] ) ) 
@@ -165,21 +206,21 @@ class fpwPostInstructions {
 			'<img class="alignleft" src="' . $this->pluginUrl . '/Thumbs_Up.png" width="64">' . $update . '</div></td></tr>';
 	}
 
-	//	Add link to Donation to plugins meta
+	//	add link to Donation to plugins meta
 	public function pluginMetaLinks( $links, $file ) {
 		if ( 'fpw-post-instructions/fpw-post-instructions.php' == $file ) 
 			$links[] = '<a href="http://fw2s.com/payments-and-donations/" target="_blank">' . __( "Donate", "fpw-fpi" ) . '</a>';
 		return $links;
 	}
 
-	//	Add link to settings page in plugins list
+	//	add link to settings page in plugins list
 	public function pluginLinks( $links, $file ) {
    		$settings_link = '<a href="' . site_url( '/wp-admin/' ) . 'options-general.php?page=fpw-post-instructions">' . __( 'Settings', 'fpw-fpi' ) . '</a>';
 		array_unshift( $links, $settings_link );
     	return $links;
 	}
 
-	//	Plugin's settings page
+	//	plugin's settings page
 	public function pluginSettings() {
 	
 		/*	get custom post type names array */
@@ -201,8 +242,10 @@ class fpwPostInstructions {
 		/*	get options array */
 		$this->pluginOptions = $this->getPluginOptions();
 	
-		$old_visual = $this->pluginOptions[ 'visual' ];
-		$old_visual_type = $this->pluginOptions[ 'visual-type' ];
+		if ( '3.3' > $this->wpVersion ) {
+			$old_visual = $this->pluginOptions[ 'visual' ];
+			$old_visual_type = $this->pluginOptions[ 'visual-type' ];
+		}
 
 		foreach ( $post_type_names as $post_type_name ) {
 			if ( !is_array( $this->pluginOptions[ 'types' ][ $post_type_name ] ) )
@@ -217,18 +260,18 @@ class fpwPostInstructions {
 			}
 
 		/*	check if changes were submitted */
-		if ( ( $_POST[ 'fpw_post_instructions_submit' ] ) || ( $_POST[ 'fpw_post_instructions_submit_top' ] ) ) {
+		if ( isset( $_POST[ 'fpw_post_instructions_submit' ] ) || isset( $_POST[ 'fpw_post_instructions_submit_top' ] ) ) {
 			if ( !isset( $_POST[ 'fpw-post-instructions-nonce' ] ) ) 
 				die( '<br />&nbsp;<br /><p style="padding-left: 20px; color: red"><strong>' . __( 'You did not send any credentials!', 'fpw-fpi' ) . '</strong></p>' );
 			if ( !wp_verify_nonce( $_POST[ 'fpw-post-instructions-nonce' ], 'fpw-post-instructions-nonce' ) ) 
 				die( '<br />&nbsp;<br /><p style="padding-left: 20px; color: red;"><strong>' . __( 'You did not send the right credentials!', 'fpw-fpi' ) . '</strong></p>' );
 
 			foreach ( $post_type_names as $post_type_name ) {
-				$this->pluginOptions[ 'types' ][ $post_type_name ][ 'enabled' ] = ( 'yes' == $_POST[ $post_type_name . '-enabled' ] );
+				$this->pluginOptions[ 'types' ][ $post_type_name ][ 'enabled' ] = ( isset( $_POST[ $post_type_name . '-enabled' ] ) ) ? true : false;
 				$this->pluginOptions[ 'types' ][ $post_type_name ][ 'title' ] = stripslashes( $_POST[ $post_type_name . '-title' ] );
 			
 				if ( '3.3' > $this->wpVersion ) {
-					$this->pluginOptions[ 'visual' ] = ( 'yes' == $_POST[ 'visual' ] );
+					$this->pluginOptions[ 'visual' ] = ( isset( $_POST[ 'visual' ] ) ) ? true : false;
 					$this->pluginOptions[ 'visual-type' ] = $_POST[ 'fpw-radio-visual' ];
 
 					if ( $this->allowedVisual && $old_visual && ( $post_type_name == $old_visual_type ) ) {
@@ -241,10 +284,10 @@ class fpwPostInstructions {
 				}
 			}
 		
-			$this->pluginOptions[ 'clean' ] = ( 'yes' == $_POST[ 'cleanup' ] );
+			$this->pluginOptions[ 'clean' ] = ( isset( $_POST[ 'cleanup' ] ) ) ? true : false;
 
 			if ( '3.1' <= $this->wpVersion )
-				$this->pluginOptions[ 'abar' ] = ( 'yes' == $_POST[ 'abar' ] );
+				$this->pluginOptions[ 'abar' ] = ( isset( $_POST[ 'abar' ] ) ) ? true : false;
 		
 			$update_ok = update_option( 'fpw_post_instructions_options', $this->pluginOptions );
 		
@@ -255,10 +298,10 @@ class fpwPostInstructions {
 
 		//	HTML of settings page starts here
 		echo '<div class="wrap">';
-		echo '<div id="icon-edit-pages" class="icon32"></div><h2>' . __( 'FPW Post Instructions', 'fpw-fpi' ) . ' (' . $this->pluginVersion . ')</h2>';
+		echo '<div id="icon-edit-pages" class="icon32"></div><h2 id="fpi-settings-title">' . __( 'FPW Post Instructions', 'fpw-fpi' ) . ' (' . $this->pluginVersion . ')</h2>';
 
 		//	display message about update status
-		if ( ( $_POST[ 'fpw_post_instructions_submit' ] ) || ( $_POST[ 'fpw_post_instructions_submit_top' ] ) )
+		if ( isset( $_POST[ 'fpw_post_instructions_submit' ] ) || isset( $_POST[ 'fpw_post_instructions_submit_top' ] ) )
 			if ( $update_ok ) {
 				echo '<div id="message" class="updated fade"><p><strong>' . __( 'Updated successfully.', 'fpw-fpi' ) . '</strong></p></div>';
 			} else {
