@@ -7,6 +7,7 @@ class fpwPostInstructions {
 	public	$pluginVersion;
 	public	$pluginPage;
 	public	$allowedVisual;
+	public	$canActivate;
 
 	//	constructor
 	public function __construct( $path, $version ) {
@@ -24,6 +25,9 @@ class fpwPostInstructions {
 		//	set plugin's version
 		$this->pluginVersion = $version;
 		
+		//	set canActivate flag
+		$this->canActivate = ( '3.0' <= $this->wpVersion ) ? true : false;
+
 		//	actions and filters
 		add_action( 'init', array( &$this, 'loadTextDomain' ), 1 );
 		add_action( 'admin_menu', array( &$this, 'addToSettingsMenu' ) );
@@ -34,7 +38,7 @@ class fpwPostInstructions {
 		add_filter( 'plugin_action_links_fpw-post-instructions/fpw-post-instructions.php', array( &$this, 'pluginLinks' ), 10, 2);
 		add_filter( 'plugin_row_meta', array( &$this, 'pluginMetaLinks'), 10, 2 );
 
-		register_activation_hook( __FILE__, array( &$this, 'pluginActivate' ) );
+		register_activation_hook( $this->pluginPath . '/fpw-post-instructions.php', array( &$this, 'pluginActivate' ) );
 		
 		//	read plugin's options
 		$this->pluginOptions = $this->getPluginOptions();
@@ -183,15 +187,23 @@ class fpwPostInstructions {
 		}
 	}
 	
-	//	uninstall file maintenance
+	//	activation and uninstall maintenance
 	public function pluginActivate() {
-		//	if cleanup requested make uninstall.php otherwise make uninstall.txt
-		if ( $this->pluginOptions[ 'clean' ] ) {
-			if ( file_exists( $this->pluginPath . '/uninstall.txt' ) ) 
-				rename( $this->pluginPath . '/uninstall.txt', $this->pluginPath . '/uninstall.php' );
+		//	check if activation is possible
+		if ( $this->canActivate ) {
+			//	if cleanup requested make uninstall.php otherwise make uninstall.txt
+			if ( $this->pluginOptions[ 'clean' ] ) {
+				if ( file_exists( $this->pluginPath . '/uninstall.txt' ) ) 
+					rename( $this->pluginPath . '/uninstall.txt', $this->pluginPath . '/uninstall.php' );
+			} else {
+				if ( file_exists( $this->pluginPath . '/uninstall.php' ) ) 
+					rename( $this->pluginPath . '/uninstall.php', $this->pluginPath . '/uninstall.txt' );
+			}
 		} else {
-			if ( file_exists( $this->pluginPath . '/uninstall.php' ) ) 
-				rename( $this->pluginPath . '/uninstall.php', $this->pluginPath . '/uninstall.txt' );
+			deactivate_plugins( $this->pluginPath . '/fpw-post-instructions.php' );
+			wp_die( '<center><strong>CANNOT ACTIVATE<br />&nbsp;<br />' . 
+					'FPW Post Instructions</strong> requires <strong>WordPress 3.0 or higher</strong><br />&nbsp;<br />' . 
+					'Press your browser\'s <em>Back</em> button</center>' );		
 		}
 	}	
 	

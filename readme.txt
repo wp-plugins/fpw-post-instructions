@@ -28,6 +28,9 @@ are available - plain text (HTML codes allowed) and visual text editing.
 
 == Changelog ==
 
+= 1.3.0 =
+* Added code to prevent plugin being activated when WordPress version is lower than 3.0
+
 = 1.2.9 =
 * Added support for pointers ( WP 3.3+ )
 * Minor bugs fixed
