@@ -71,12 +71,12 @@ class fpwPostInstructions {
 		$this->pluginPage = add_options_page( $pageTitle, $menuTitle, 'manage_options', 'fpw-post-instructions', array( &$this, 'pluginSettings' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueScripts' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueuePointerScripts' ) );
-		add_action( 'load-' . $this->pluginPage, array( &$this, 'help33' ) );
+		add_action( 'load-' . $this->pluginPage, array( &$this, 'help' ) );
 	}
 
-	//	add plugin's contextual help ( 3.3+ )
-	public function help33() {
-		require_once $this->pluginPath . '/help/help33.php';
+	//	add plugin's contextual help
+	public function help() {
+		require_once $this->pluginPath . '/help/help.php';
 	}
 
 	//	register styles, scripts, and localize javascript
