@@ -6,11 +6,10 @@ Description: Adds metaboxes to admin editing screens for posts, pages, links,
 and custom post types with instructions for editors.
 
 Plugin URI: http://fw2s.com/fpw-post-instructions-plugin/
-Version: 1.3.0
+Version: 1.2.9
 Author: Frank P. Walentynowicz
 Author URI: http://fw2s.com/
-Text Domain: fpw-fpi
-Domain Path: /languages
+
 Copyright 2011 Frank P. Walentynowicz (email : frankpw@fw2s.com)
 
 This program is free software; you can redistribute it and/or modify

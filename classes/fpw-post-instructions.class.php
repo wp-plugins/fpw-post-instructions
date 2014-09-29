@@ -1,9 +1,4 @@
 <?php
-
-//	prevent direct access
-if ( preg_match( '#' . basename(__FILE__) . '#', $_SERVER[ 'PHP_SELF' ] ) )  
-	die( "Direct access to this script is forbidden!" );
-
 class fpwPostInstructions {
 	public	$pluginOptions;
 	public	$pluginPath;
@@ -12,7 +7,6 @@ class fpwPostInstructions {
 	public	$pluginVersion;
 	public	$pluginPage;
 	public	$allowedVisual;
-	public	$canActivate;
 
 	//	constructor
 	public function __construct( $path, $version ) {
@@ -30,9 +24,6 @@ class fpwPostInstructions {
 		//	set plugin's version
 		$this->pluginVersion = $version;
 		
-		//	set canActivate flag
-		$this->canActivate = ( '3.0' <= $this->wpVersion ) ? true : false;
-
 		//	actions and filters
 		add_action( 'init', array( &$this, 'loadTextDomain' ), 1 );
 		add_action( 'admin_menu', array( &$this, 'addToSettingsMenu' ) );
@@ -43,7 +34,7 @@ class fpwPostInstructions {
 		add_filter( 'plugin_action_links_fpw-post-instructions/fpw-post-instructions.php', array( &$this, 'pluginLinks' ), 10, 2);
 		add_filter( 'plugin_row_meta', array( &$this, 'pluginMetaLinks'), 10, 2 );
 
-		register_activation_hook( $this->pluginPath . '/fpw-post-instructions.php', array( &$this, 'pluginActivate' ) );
+		register_activation_hook( __FILE__, array( &$this, 'pluginActivate' ) );
 		
 		//	read plugin's options
 		$this->pluginOptions = $this->getPluginOptions();
@@ -70,31 +61,53 @@ class fpwPostInstructions {
 		$menuTitle = __('FPW Post Instructions', 'fpw-fpi');
 		$this->pluginPage = add_options_page( $pageTitle, $menuTitle, 'manage_options', 'fpw-post-instructions', array( &$this, 'pluginSettings' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueScripts' ) );
-		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueuePointerScripts' ) );
-		add_action( 'load-' . $this->pluginPage, array( &$this, 'help' ) );
+	
+		if ( '3.3' <= $this->wpVersion ) {
+			add_action( 'admin_enqueue_scripts', array( &$this, 'enqueuePointerScripts' ) );
+			add_action( 'load-' . $this->pluginPage, array( &$this, 'help33' ) );
+		} else {
+			add_filter( 'contextual_help', array( &$this, 'help' ), 10, 3 );
+		}
 	}
 
-	//	add plugin's contextual help
-	public function help() {
-		require_once $this->pluginPath . '/help/help.php';
+	//	add plugin's contextual help ( 3.3+ )
+	public function help33() {
+		if ( '3.3' <= $this->wpVersion ) 
+			include $this->pluginPath . '/help/help33.php';
+	}
+
+	//	add plugin's contextual help ( < 3.3 )
+	public function help( $contextual_help, $screen_id, $screen ) {
+		if ( $screen_id == $this->pluginPage ) {
+			include $this->pluginPath . '/help/help.php';
+		}	
+		return $contextual_help; 
 	}
 
 	//	register styles, scripts, and localize javascript
 	public function enqueueScripts( $hook ) {
 		if ( 'settings_page_fpw-post-instructions' == $hook ) {
-			include $this->pluginPath . '/scripts/enqueuescripts.php';			
+			include $this->pluginPath . '/code/enqueuescripts.php';			
 		}
 	}
 
 	//	enqueue pointer scripts
-	function enqueuePointerScripts( $hook ) {
-		if ( 'settings_page_fpw-post-instructions' == $hook )
-			require_once $this->pluginPath . '/scripts/enqueuepointerscripts.php';
+	public function enqueuePointerScripts( $hook ) {
+		$proceed = false;
+		$dismissed = explode( ',', (string) get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
+		if ( !in_array( 'fpwfpi129', $dismissed ) && apply_filters( 'show_wp_pointer_admin_bar', TRUE ) ) {
+			$proceed = true;
+			add_action( 'admin_print_footer_scripts', array( &$this, 'custom_print_footer_scripts' ) );
+		}
+		if ( $proceed ) {
+    		wp_enqueue_style('wp-pointer');
+    		wp_enqueue_script('wp-pointer');
+    		wp_enqueue_script('utils');
+		}
 	}
 
 	// 	handle pointer
 	public function custom_print_footer_scripts() {
-		$pointer = 'fpwfpi' . str_replace( '.', '', $this->pluginVersion );
     	$pointerContent  = '<h3>' . esc_js( __( "What's new in this version?", 'fpw-fct' ) ) . '</h3>';
 		$pointerContent .= '<li style="margin-left:25px;margin-top:20px;list-style:square">' . __( 'Added support for pointers', 'fpw-fct' ) . ' (WP 3.3+)</li>';
 		$pointerContent .= '<li style="margin-left:25px;list-style:square">' . __( 'Minor bugs fixes', 'fpw-fct' ) . '</li>';
@@ -107,7 +120,7 @@ class fpwPostInstructions {
         			position: 'top',
             		close: function() {
 						jQuery.post( ajaxurl, {
-							pointer: '<?php echo $pointer; ?>',
+							pointer: 'fpwfpi129',
 							action: 'dismiss-wp-pointer'
 						});
             		}
@@ -170,23 +183,15 @@ class fpwPostInstructions {
 		}
 	}
 	
-	//	activation and uninstall maintenance
+	//	uninstall file maintenance
 	public function pluginActivate() {
-		//	check if activation is possible
-		if ( $this->canActivate ) {
-			//	if cleanup requested make uninstall.php otherwise make uninstall.txt
-			if ( $this->pluginOptions[ 'clean' ] ) {
-				if ( file_exists( $this->pluginPath . '/uninstall.txt' ) ) 
-					rename( $this->pluginPath . '/uninstall.txt', $this->pluginPath . '/uninstall.php' );
-			} else {
-				if ( file_exists( $this->pluginPath . '/uninstall.php' ) ) 
-					rename( $this->pluginPath . '/uninstall.php', $this->pluginPath . '/uninstall.txt' );
-			}
+		//	if cleanup requested make uninstall.php otherwise make uninstall.txt
+		if ( $this->pluginOptions[ 'clean' ] ) {
+			if ( file_exists( $this->pluginPath . '/uninstall.txt' ) ) 
+				rename( $this->pluginPath . '/uninstall.txt', $this->pluginPath . '/uninstall.php' );
 		} else {
-			deactivate_plugins( $this->pluginPath . '/fpw-post-instructions.php' );
-			wp_die( '<center><strong>CANNOT ACTIVATE<br />&nbsp;<br />' . 
-					'FPW Post Instructions</strong> requires <strong>WordPress 3.0 or higher</strong><br />&nbsp;<br />' . 
-					'Press your browser\'s <em>Back</em> button</center>' );		
+			if ( file_exists( $this->pluginPath . '/uninstall.php' ) ) 
+				rename( $this->pluginPath . '/uninstall.php', $this->pluginPath . '/uninstall.txt' );
 		}
 	}	
 	
@@ -404,7 +409,7 @@ class fpwPostInstructions {
 					$title = $value[ 'title' ];
 					if ( "" == $title )
 						$title = __( 'Special Instructions for Editors', 'fpw-fpi' );
-					add_meta_box( 'fpw_post_instructions_sectionid', $title, array( &$this, 'instructionsBox'), $key, 'side', 'high', array( 'content' => $value[ 'content' ] ) );
+					add_meta_box( 'fpw_post_instructions_sectionid', $title, array( &$this, 'instructionsBox'), $key, 'advanced', 'high', array( 'content' => $value[ 'content' ] ) );
 				}
 			}
 	}
