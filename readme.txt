@@ -3,7 +3,7 @@ Contributors: frankpw
 Donate link: http://fw2s.com/payments-and-donations/
 Tags: post, page, type, custom, metabox, instructions
 Requires at least: 3.0
-Tested up to: 3.9-beta2
+Tested up to: 4.0
 Stable tag: 1.2.9
 
 Meta boxes on admin editing screens for posts, pages, links, and custom post 
@@ -27,6 +27,10 @@ are available - plain text (HTML codes allowed) and visual text editing.
 2. Meta box
 
 == Changelog ==
+
+= 1.3.0 =
+* CSS improvements
+* WordPress 4.0 compatibility
 
 = 1.2.9 =
 * Added support for pointers ( WP 3.3+ )

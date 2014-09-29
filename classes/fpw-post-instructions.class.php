@@ -38,8 +38,8 @@ class fpwPostInstructions {
 		
 		//	read plugin's options
 		$this->pluginOptions = $this->getPluginOptions();
-
-		if ( '3.1' <= $this->wpVersion ) {
+		
+		if ( version_compare( $this->wpVersion, '3.1', '>=' ) ) {
 			if ( isset( $_POST[ 'fpw_post_instructions_submit' ] ) || isset( $_POST[ 'fpw_post_instructions_submit_top' ] ) )  
 				$this->pluginOptions[ 'abar' ] = ( isset( $_POST[ 'abar' ] ) ) ? true : false; 
 			if ( $this->pluginOptions[ 'abar' ] ) 
@@ -57,12 +57,12 @@ class fpwPostInstructions {
 	//	register plugin's menu in Settings
 	public function addToSettingsMenu() {
 			
-		$pageTitle = __('FPW Post Instructions', 'fpw-fpi') . ' (' . $this->pluginVersion . ')';
+		$pageTitle = __('FPW Post Instructions', 'fpw-fpi');
 		$menuTitle = __('FPW Post Instructions', 'fpw-fpi');
 		$this->pluginPage = add_options_page( $pageTitle, $menuTitle, 'manage_options', 'fpw-post-instructions', array( &$this, 'pluginSettings' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueScripts' ) );
 	
-		if ( '3.3' <= $this->wpVersion ) {
+		if ( version_compare( $this->wpVersion, '3.3', '>=' ) ) {
 			add_action( 'admin_enqueue_scripts', array( &$this, 'enqueuePointerScripts' ) );
 			add_action( 'load-' . $this->pluginPage, array( &$this, 'help33' ) );
 		} else {
@@ -72,7 +72,7 @@ class fpwPostInstructions {
 
 	//	add plugin's contextual help ( 3.3+ )
 	public function help33() {
-		if ( '3.3' <= $this->wpVersion ) 
+		if ( version_compare( $this->wpVersion, '3.3', '>=' ) ) 
 			include $this->pluginPath . '/help/help33.php';
 	}
 
@@ -109,8 +109,8 @@ class fpwPostInstructions {
 	// 	handle pointer
 	public function custom_print_footer_scripts() {
     	$pointerContent  = '<h3>' . esc_js( __( "What's new in this version?", 'fpw-fct' ) ) . '</h3>';
-		$pointerContent .= '<li style="margin-left:25px;margin-top:20px;list-style:square">' . __( 'Added support for pointers', 'fpw-fct' ) . ' (WP 3.3+)</li>';
-		$pointerContent .= '<li style="margin-left:25px;list-style:square">' . __( 'Minor bugs fixes', 'fpw-fct' ) . '</li>';
+		$pointerContent .= '<li style="margin-left:25px;list-style:square">' . __( 'CSS improvements', 'fpw-fct' ) . '</li>';
+		$pointerContent .= '<li style="margin-left:25px;list-style:square">' . __( 'WordPress 4.0 compatibility', 'fpw-fct' ) . '</li>';
     	?>
     	<script type="text/javascript">
     	// <![CDATA[
@@ -120,7 +120,7 @@ class fpwPostInstructions {
         			position: 'top',
             		close: function() {
 						jQuery.post( ajaxurl, {
-							pointer: 'fpwfpi129',
+							pointer: 'fpwfpi130',
 							action: 'dismiss-wp-pointer'
 						});
             		}
@@ -140,10 +140,10 @@ class fpwPostInstructions {
 			$opt = array();
 			$opt[ 'clean' ] = FALSE;
 	
-			if ( '3.1' <= $this->wpVersion )
+			if ( version_compare( $this->wpVersion, '3.1', '>=' ) )
 				$opt[ 'abar' ] = FALSE;
 	
-			if ( '3.3' > $this->wpVersion ) {
+			if ( version_compare( $this->wpVersion, '3.3', '<' ) ) {
 				$opt[ 'visual' ] = FALSE;
 				$opt[ 'visual-type' ] = 'post';
 			}
@@ -171,7 +171,7 @@ class fpwPostInstructions {
 				'title' => __( 'FPW Post Instructions', 'fpw-fpi' ),
 				'href' => get_admin_url() . 'options-general.php?page=fpw-post-instructions' );
 
-			if ( '3.3' <= $this->wpVersion ) {
+			if ( version_compare( $this->wpVersion, '3.3', '>=' ) ) {
 				$addmain = ( is_array( $wp_admin_bar->get_node( 'fpw_plugins' ) ) ) ? false : true;
 			} else {
 				$addmain = ( isset( $wp_admin_bar->menu->fpw_plugins ) ) ? false : true;
@@ -222,7 +222,6 @@ class fpwPostInstructions {
 
 	//	plugin's settings page
 	public function pluginSettings() {
-	
 		/*	get custom post type names array */
 		$args = array( 'public' => true, '_builtin' => false );
 		$output = 'names';
@@ -242,7 +241,7 @@ class fpwPostInstructions {
 		/*	get options array */
 		$this->pluginOptions = $this->getPluginOptions();
 	
-		if ( '3.3' > $this->wpVersion ) {
+		if ( version_compare( $this->wpVersion, '3.3', '<' ) ) {
 			$old_visual = $this->pluginOptions[ 'visual' ];
 			$old_visual_type = $this->pluginOptions[ 'visual-type' ];
 		}
@@ -270,7 +269,7 @@ class fpwPostInstructions {
 				$this->pluginOptions[ 'types' ][ $post_type_name ][ 'enabled' ] = ( isset( $_POST[ $post_type_name . '-enabled' ] ) ) ? true : false;
 				$this->pluginOptions[ 'types' ][ $post_type_name ][ 'title' ] = stripslashes( $_POST[ $post_type_name . '-title' ] );
 			
-				if ( '3.3' > $this->wpVersion ) {
+				if ( version_compare( $this->wpVersion, '3.3', '<' ) ) {
 					$this->pluginOptions[ 'visual' ] = ( isset( $_POST[ 'visual' ] ) ) ? true : false;
 					$this->pluginOptions[ 'visual-type' ] = $_POST[ 'fpw-radio-visual' ];
 
@@ -286,7 +285,7 @@ class fpwPostInstructions {
 		
 			$this->pluginOptions[ 'clean' ] = ( isset( $_POST[ 'cleanup' ] ) ) ? true : false;
 
-			if ( '3.1' <= $this->wpVersion )
+			if ( version_compare( $this->wpVersion, '3.1', '>=' ) )
 				$this->pluginOptions[ 'abar' ] = ( isset( $_POST[ 'abar' ] ) ) ? true : false;
 		
 			$update_ok = update_option( 'fpw_post_instructions_options', $this->pluginOptions );
@@ -298,7 +297,7 @@ class fpwPostInstructions {
 
 		//	HTML of settings page starts here
 		echo '<div class="wrap">';
-		echo '<div id="icon-edit-pages" class="icon32"></div><h2 id="fpi-settings-title">' . __( 'FPW Post Instructions', 'fpw-fpi' ) . ' (' . $this->pluginVersion . ')</h2>';
+		echo '<div id="icon-edit-pages" class="icon32"></div><h2 id="fpi-settings-title">' . __( 'FPW Post Instructions', 'fpw-fpi' ) . '</h2>';
 
 		//	display message about update status
 		if ( isset( $_POST[ 'fpw_post_instructions_submit' ] ) || isset( $_POST[ 'fpw_post_instructions_submit_top' ] ) )
@@ -320,14 +319,14 @@ class fpwPostInstructions {
 		echo " /> " . __( "Remove plugin's data from database on uninstall", 'fpw-fpi' ) . '<br />';
 
 		//	admin bar checkbox
-		if ( '3.1' <= $this->wpVersion ) {
+		if ( version_compare( $this->wpVersion, '3.1', '>=' ) ) {
 			echo '<input type="checkbox" name="abar" value="yes"';
 			if ( $this->pluginOptions[ 'abar' ] ) echo ' checked';
 			echo ' /> ' . __( 'Add this plugin to the Admin Bar', 'fpw-fpi' ) . '<br />';
 		}
 	
 		//	visual checkbox and radio selectors
-		if ( '3.3' > $this->wpVersion ) {
+		if ( version_compare( $this->wpVersion, '3.3', '<' ) ) {
 			echo '<input type="checkbox" name="visual" value="yes"';
 			if ( $this->pluginOptions[ 'visual' ] ) echo ' checked';
 			echo ' /> ' . __( 'Activate visual editor for:', 'fpw-fpi' ) . '&nbsp;&nbsp| ';
@@ -354,7 +353,12 @@ class fpwPostInstructions {
 			echo '<table class="widefat">';
 			echo '<thead';
 			echo '<tr>';
-			echo '<th><span style="font-size:1.5em">' . __( 'Type', 'fpw-fpi' ) . ': <em>' . $post_type_name . '</em></span></th>';
+			echo '<th style="background-color: #F1F1F1; ' .
+					'background-image: -webkit-linear-gradient(top , #F9F9F9, #CCCCCC); ' .
+					'background-image: -moz-linear-gradient(top , #F9F9F9, #CCCCCC); ' .
+					'background-image: -ms-linear-gradient(top , #F9F9F9, #CCCCCC); ' .
+					'background-image: -o-linear-gradient(top , #F9F9F9, #CCCCCC);">' .
+					'<span style="font-size:1.5em">' . __( 'Type', 'fpw-fpi' ) . ': <em>' . $post_type_name . '</em></span></th>';
 			echo '</tr>';
 			echo '</thead>';
 			echo '<tbody';
@@ -367,7 +371,7 @@ class fpwPostInstructions {
 			echo '<input type="text" name="' . $post_type_name . '-title" value="' . $this->pluginOptions[ 'types' ][ $post_type_name ][ 'title' ] . '" maxlenght="60" size="60" /><br /><br />';
 			echo '<strong>' . __( 'Content', 'fpw-fpi' ) . '</strong>';
 
-			if ( '3.3' > $this->wpVersion ) { 
+			if ( version_compare( $this->wpVersion, '3.3', '<' ) ) { 
 				if ( !$this->allowedVisual || !$this->pluginOptions[ 'visual' ] || ( $post_type_name <> $this->pluginOptions[ 'visual-type' ] ) ) 
 					echo ' ( ' . __( 'HTML allowed', 'fpw-fpi' ) . ' )';
 				echo '<br />';
