@@ -3,7 +3,7 @@ Contributors: frankpw
 Donate link: http://fw2s.com/payments-and-donations/
 Tags: post, page, type, custom, metabox, instructions
 Requires at least: 3.0
-Tested up to: 4.0
+Tested up to: 4.0.1
 Stable tag: 1.3.0
 
 Meta boxes on admin editing screens for posts, pages, links, and custom post 
