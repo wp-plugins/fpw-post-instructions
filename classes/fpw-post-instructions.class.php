@@ -2,6 +2,7 @@
 class fpwPostInstructions {
 	public	$pluginOptions;
 	public	$pluginPath;
+	public	$pluginRelPath;
 	public	$pluginUrl;
 	public	$wpVersion;
 	public	$pluginVersion;
@@ -9,11 +10,14 @@ class fpwPostInstructions {
 	public	$allowedVisual;
 
 	//	constructor
-	public function __construct( $path, $version ) {
+	public function __construct( $path, $relPath, $version ) {
 		global $wp_version;
 
 		//	set plugin's path
 		$this->pluginPath = $path;
+		
+		//	set plugin's relative path
+		$this->pluginRelPath = $relPath;
 		
 		//	set plugin's url
 		$this->pluginUrl = WP_PLUGIN_URL . '/fpw-post-instructions';
@@ -51,7 +55,7 @@ class fpwPostInstructions {
 	//	register plugin's textdomain 
 	//	for translations
 	public function loadTextDomain() {
-		load_plugin_textdomain( 'fpw-fpi', false, 'fpw-post-instructions/languages/' );
+		load_plugin_textdomain( 'fpw-fpi', false, $this->pluginRelPath . '/languages' );
 	}	
 
 	//	register plugin's menu in Settings
@@ -95,7 +99,7 @@ class fpwPostInstructions {
 	public function enqueuePointerScripts( $hook ) {
 		$proceed = false;
 		$dismissed = explode( ',', (string) get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
-		if ( !in_array( 'fpwfpi129', $dismissed ) && apply_filters( 'show_wp_pointer_admin_bar', TRUE ) ) {
+		if ( !in_array( 'fpwfpi131', $dismissed ) && apply_filters( 'show_wp_pointer_admin_bar', TRUE ) ) {
 			$proceed = true;
 			add_action( 'admin_print_footer_scripts', array( &$this, 'custom_print_footer_scripts' ) );
 		}
@@ -105,12 +109,13 @@ class fpwPostInstructions {
     		wp_enqueue_script('utils');
 		}
 	}
-
+	
 	// 	handle pointer
 	public function custom_print_footer_scripts() {
-    	$pointerContent  = '<h3>' . esc_js( __( "What's new in this version?", 'fpw-fct' ) ) . '</h3>';
-		$pointerContent .= '<li style="margin-left:25px;margin-top:20px;list-style:square">' . __( 'Added support for pointers', 'fpw-fct' ) . ' (WP 3.3+)</li>';
-		$pointerContent .= '<li style="margin-left:25px;list-style:square">' . __( 'Minor bugs fixes', 'fpw-fct' ) . '</li>';
+    	$pointerContent  = '<h3>' . esc_js( __( "What's new in this version?", 'fpw-fpi' ) ) . '</h3>';
+		$pointerContent .= '<li style="margin-left:25px;margin-top:20px;list-style:square">' . __( 'Minor bugs fixed', 'fpw-fpi' ) . '</li>';
+		$pointerContent .= '<li style="margin-left:25px;list-style:square">' . __( 'Added missing help', 'fpw-fpi' ) . '</li>';
+		$pointerContent .= '<li style="margin-left:25px;list-style:square">' . __( 'Added Polish and Serbian translations', 'fpw-fpi' ) . '</li>';
     	?>
     	<script type="text/javascript">
     	// <![CDATA[
@@ -120,7 +125,7 @@ class fpwPostInstructions {
         			position: 'top',
             		close: function() {
 						jQuery.post( ajaxurl, {
-							pointer: 'fpwfpi129',
+							pointer: 'fpwfpi131',
 							action: 'dismiss-wp-pointer'
 						});
             		}
