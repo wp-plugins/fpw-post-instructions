@@ -126,3 +126,9 @@ multiple instances of the rich text editor.
 
 = WordPress version 3.3+ =
 Multiple rich text editors allowed
+
+== Translations ==
+
+= Serbian =
+By Borisa Djuraskovic
+www.webhostinghub.com
