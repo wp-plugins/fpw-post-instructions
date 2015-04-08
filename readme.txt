@@ -130,5 +130,4 @@ Multiple rich text editors allowed
 == Translations ==
 
 = Serbian =
-By Borisa Djuraskovic
-www.webhostinghub.com
+By Borisa Djuraskovic (www.webhostinghub.com)
