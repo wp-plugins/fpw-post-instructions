@@ -2,121 +2,125 @@
 # This file is distributed under the same license as the FPW Post Instructions package.
 msgid ""
 msgstr ""
-"Project-Id-Version: FPW Post Instructions 1.3.0\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/fpw-post-instructions\n"
-"POT-Creation-Date: 2012-04-19 06:05:42+00:00\n"
+"Project-Id-Version: FPW Post Instructions 1.3.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/fpw-post-instructions\n"
+"POT-Creation-Date: 2015-04-09 00:02:17+00:00\n"
+"PO-Revision-Date: 2015-04-08 18:07-0700\n"
+"Last-Translator: Frank P. Walentynowicz <frankpw@fw2s.com>\n"
+"Language-Team: Frank P. Walentynowicz <frankpw@fw2s.com>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-04-08 15:09-0700\n"
-"Last-Translator: Frank P. Walentynowicz <frankpw@fw2s.com>\n"
-"Language-Team: Frank P. Walentynowicz <frankpw@fw2s.com>\n"
 "X-Generator: Poedit 1.7.5\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n"
 "%100>=20) ? 1 : 2);\n"
-"Language: pl\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Plugin Name of the plugin/theme
-#: classes/fpw-post-instructions.class.php:60
-#: classes/fpw-post-instructions.class.php:61
-#: classes/fpw-post-instructions.class.php:171
-#: classes/fpw-post-instructions.class.php:301
+#: classes/fpw-post-instructions.class.php:64
+#: classes/fpw-post-instructions.class.php:65
+#: classes/fpw-post-instructions.class.php:176
+#: classes/fpw-post-instructions.class.php:306
 msgid "FPW Post Instructions"
 msgstr "Instrukcje Wpisów FPW"
 
-#: classes/fpw-post-instructions.class.php:111
+#: classes/fpw-post-instructions.class.php:115
 msgid "What's new in this version?"
 msgstr "Co nowego w tej wersji?"
 
-#: classes/fpw-post-instructions.class.php:112
-msgid "Added support for pointers"
-msgstr "Dodano wspomaganie dla wskaźników (pointers)"
-
-#: classes/fpw-post-instructions.class.php:113
-msgid "Minor bugs fixes"
+#: classes/fpw-post-instructions.class.php:116
+msgid "Minor bugs fixed"
 msgstr "Poprawki drobnych błędów"
 
-#: classes/fpw-post-instructions.class.php:165
+#: classes/fpw-post-instructions.class.php:117
+msgid "Added missing help"
+msgstr "Dodano brakujące pliki pomocy"
+
+#: classes/fpw-post-instructions.class.php:118
+msgid "Added Polish and Serbian translations"
+msgstr "Dodano tłumaczenia: polski I serbski"
+
+#: classes/fpw-post-instructions.class.php:170
 msgid "FPW Plugins"
 msgstr "Wtyczki FPW"
 
-#: classes/fpw-post-instructions.class.php:212
+#: classes/fpw-post-instructions.class.php:217
 msgid "Donate"
 msgstr "Wspomóż"
 
-#: classes/fpw-post-instructions.class.php:218
+#: classes/fpw-post-instructions.class.php:223
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: classes/fpw-post-instructions.class.php:265
+#: classes/fpw-post-instructions.class.php:270
 msgid "You did not send any credentials!"
 msgstr "Nie wysłałe(a)ś żadnych poświadczeń!"
 
-#: classes/fpw-post-instructions.class.php:267
+#: classes/fpw-post-instructions.class.php:272
 msgid "You did not send the right credentials!"
 msgstr "Nie wysłałe(a)ś poprawnych poświadczeń!"
 
-#: classes/fpw-post-instructions.class.php:306
+#: classes/fpw-post-instructions.class.php:311
 msgid "Updated successfully."
 msgstr "Zaktualizowano pomyślnie."
 
-#: classes/fpw-post-instructions.class.php:308
+#: classes/fpw-post-instructions.class.php:313
 msgid "No changes detected. Nothing to update."
 msgstr "Nie wykryto żadnych zmian."
 
-#: classes/fpw-post-instructions.class.php:320 help/help.php:17 help/help33.php:27
+#: classes/fpw-post-instructions.class.php:325 help/help.php:17
 msgid "Remove plugin's data from database on uninstall"
 msgstr "Usuń dane wtyczki z bazy danych podczas usuwania wtyczki"
 
-#: classes/fpw-post-instructions.class.php:326 help/help.php:19 help/help33.php:29
+#: classes/fpw-post-instructions.class.php:331 help/help.php:19
 msgid "Add this plugin to the Admin Bar"
 msgstr "Dodaj tę wtyczkę do Paska Administratora"
 
-#: classes/fpw-post-instructions.class.php:333 help/help.php:21 help/help33.php:31
+#: classes/fpw-post-instructions.class.php:338 help/help.php:21
 msgid "Activate visual editor for:"
 msgstr "Uaktywnij edytor wizualny dla:"
 
-#: classes/fpw-post-instructions.class.php:342
+#: classes/fpw-post-instructions.class.php:347
 msgid "To use this option you must enable rich text editing in your profile!"
 msgstr "Aby użyć tej opcji należy włączyć edytowania tekstu sformatowanego w profilu!"
 
-#: classes/fpw-post-instructions.class.php:349
-#: classes/fpw-post-instructions.class.php:395
+#: classes/fpw-post-instructions.class.php:354
+#: classes/fpw-post-instructions.class.php:400
 msgid "Update"
 msgstr "Aktualizuj"
 
-#: classes/fpw-post-instructions.class.php:349
-#: classes/fpw-post-instructions.class.php:395
+#: classes/fpw-post-instructions.class.php:354
+#: classes/fpw-post-instructions.class.php:400
 msgid "writes all modifications to the database"
 msgstr "zapisuje wszystkie zmiany w bazie danych"
 
-#: classes/fpw-post-instructions.class.php:357
+#: classes/fpw-post-instructions.class.php:362
 msgid "Type"
 msgstr "Typ"
 
-#: classes/fpw-post-instructions.class.php:365
+#: classes/fpw-post-instructions.class.php:370
 msgid "Enabled"
 msgstr "Włączone"
 
-#: classes/fpw-post-instructions.class.php:366
+#: classes/fpw-post-instructions.class.php:371
 msgid "Title"
 msgstr "Tytuł"
 
-#: classes/fpw-post-instructions.class.php:366
+#: classes/fpw-post-instructions.class.php:371
 msgid "default"
 msgstr "domyślnie"
 
-#: classes/fpw-post-instructions.class.php:366
-#: classes/fpw-post-instructions.class.php:411
+#: classes/fpw-post-instructions.class.php:371
+#: classes/fpw-post-instructions.class.php:416
 msgid "Special Instructions for Editors"
 msgstr "Specjalne instrukcje dla redaktorów"
 
-#: classes/fpw-post-instructions.class.php:368
+#: classes/fpw-post-instructions.class.php:373
 msgid "Content"
 msgstr "Treść"
 
-#: classes/fpw-post-instructions.class.php:372
+#: classes/fpw-post-instructions.class.php:377
 msgid "HTML allowed"
 msgstr "HTML dozwolony"
 
@@ -124,15 +128,15 @@ msgstr "HTML dozwolony"
 msgid "Help for FPW Post Instructions"
 msgstr "Pomoc dla wtyczki Instrukcje Wpisów FPW"
 
-#: help/help.php:5 help/help33.php:12 help/help33.php:21
+#: help/help.php:5
 msgid "Introduction"
 msgstr "Wprowadzenie"
 
-#: help/help.php:6 help/help33.php:26 help/help33.php:37
+#: help/help.php:6
 msgid "Options"
 msgstr "Ustawienia"
 
-#: help/help.php:11 help/help33.php:14
+#: help/help.php:11
 msgid ""
 "New features in WordPress 3.0+ as custom post types and post formats introduced some "
 "challenges to webmasters of corporate websites with many users holding post "
@@ -142,7 +146,7 @@ msgstr ""
 "szczególne wyzwania dla webmasterów stron internetowych firm z wieloma użytkownikami "
 "posiadających uprawnienia do publikacji / edycji."
 
-#: help/help.php:12 help/help33.php:15
+#: help/help.php:12
 msgid ""
 "Especially post formats which use the standard post editing screens but may have "
 "certain rules imposed by the implementation."
@@ -150,7 +154,7 @@ msgstr ""
 "Zwłaszcza formaty wpisów, które używają standardowych ekranów edycji, ale mogą mieć "
 "pewne zasady wymuszone przez ich implementację."
 
-#: help/help.php:13 help/help33.php:16
+#: help/help.php:13
 msgid ""
 "Webmasters could try the following options: make a course / training for editors, "
 "distribute instructions for editors in a form of printed material, or give editors a "
@@ -166,7 +170,7 @@ msgstr ""
 "informacje. Niestety informacje uzyskane w trakcie mogą być zapomniane, materiały "
 "drukowane zgubione i, jak każdy wie, ludzie starają się unikać czytania dokumentacji."
 
-#: help/help.php:15 help/help33.php:17
+#: help/help.php:15
 msgid ""
 "This plugin adds a metabox to post editing screens with special instructions for "
 "editors. You can make it as eye-catching as you want ( html in the content is "
@@ -178,47 +182,46 @@ msgstr ""
 "dozwolony). Instrukcje są wyświetlane na każdym ekranie edycji wpisu, więc nie mogą "
 "być zagubione."
 
-#: help/help.php:17 help/help.php:19 help/help.php:22 help/help33.php:27
-#: help/help33.php:29 help/help33.php:32
+#: help/help.php:17 help/help.php:19 help/help.php:22
 msgid "checked"
 msgstr "zaznaczone"
 
-#: help/help.php:18 help/help33.php:28
+#: help/help.php:18
 msgid ""
 "during uninstall procedure all plugin's information will be removed from the database"
 msgstr "podczas usuwania wtyczki wszystkie jej dane zostaną usunięte z bazy danych"
 
-#: help/help.php:20 help/help33.php:30
+#: help/help.php:20
 msgid "the plugin's link to its settings page will be added to the Admin Bar"
 msgstr "łącznik do ustawień wtyczki zostanie dodany do Paska Administratora"
 
-#: help/help.php:21 help/help33.php:31
+#: help/help.php:21
 msgid "radio buttons for each post type"
 msgstr "przyciski dla każdego typu wpisu"
 
-#: help/help.php:23 help/help33.php:33
+#: help/help.php:23
 msgid "allows rich text editing for post type selected"
 msgstr "umożliwia edytowania tekstu sformatowanego dla wybranego typu wpisu"
 
-#: help/help.php:23 help/help33.php:33
+#: help/help.php:23
 msgid "version"
 msgstr "wersja"
 
-#: help/help.php:24 help/help33.php:34
+#: help/help.php:24
 msgid "not used in WordPress 3.3+ which allows more than one rich text editor"
 msgstr ""
 "nie używane w WordPress 3.3 +, który umożliwia więcej niż jeden editor tekstu "
 "sformatowanego"
 
-#: help/help.php:25 help/help33.php:4
+#: help/help.php:25
 msgid "More information"
 msgstr "Więcej informacji"
 
-#: help/help.php:27 help/help33.php:5
+#: help/help.php:27
 msgid "Plugin's site"
 msgstr "Witryna wtyczki"
 
-#: help/help.php:28 help/help33.php:6
+#: help/help.php:28
 msgid "Support"
 msgstr "Wspomaganie"
 
@@ -237,3 +240,9 @@ msgstr "Frank P. Walentynowicz"
 #. Author URI of the plugin/theme
 msgid "http://fw2s.com/"
 msgstr "http://fw2s.com/"
+
+#~ msgid "Added support for pointers"
+#~ msgstr "Dodano wspomaganie dla wskaźników (pointers)"
+
+#~ msgid "Minor bugs fixes"
+#~ msgstr "Poprawki drobnych błędów"
